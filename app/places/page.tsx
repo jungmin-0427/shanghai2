@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import SearchBar from "@/components/SearchBar";
 import CategoryTabs from "@/components/CategoryTabs";
-import AreaFilter from "@/components/AreaFilter";
+import ShanghaiMap from "@/components/ShanghaiMap";
 import PlaceCard from "@/components/PlaceCard";
 import Toast from "@/components/Toast";
 import PlaceDetailModal from "@/components/PlaceDetailModal";
@@ -32,15 +32,20 @@ function PlacesContent() {
   return (
     <main className="pb-24">
       {/* 헤더 */}
-      <div className="bg-white border-b border-gray-100 px-4 pt-12 pb-4 sticky top-0 z-30">
+      <div className="bg-white border-b border-gray-100 px-4 pt-12 pb-3 sticky top-0 z-30">
         <h1 className="text-lg font-bold text-gray-900 mb-3">장소 탐색</h1>
         <div className="mb-3">
           <SearchBar value={query} onChange={setQuery} />
         </div>
-        <div className="mb-2">
-          <CategoryTabs selected={category} onChange={setCategory} />
-        </div>
-        <AreaFilter selected={area} onChange={setArea} />
+        <CategoryTabs selected={category} onChange={setCategory} />
+      </div>
+
+      {/* 상하이 지도 필터 */}
+      <div className="bg-white pt-4 pb-2 border-b border-gray-100">
+        <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+          지역으로 찾기
+        </p>
+        <ShanghaiMap selected={area} onSelect={setArea} />
       </div>
 
       {/* 결과 카운트 */}
