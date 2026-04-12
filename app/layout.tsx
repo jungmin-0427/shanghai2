@@ -3,15 +3,25 @@ import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 
 export const metadata: Metadata = {
-  title: "상하이 가이드 - 중국어 주소 쉽게 복사",
+  title: "상하이 길잡이",
   description: "상하이 인기 맛집·카페·관광지의 중국어 주소를 쉽게 복사하고 고덕지도에서 바로 열어보세요.",
   keywords: "상하이, 여행, 맛집, 카페, 관광지, 중국어 주소, 고덕지도, 가오더지도",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "상하이 길잡이",
+  },
+  icons: {
+    apple: "/icons/icon-192x192.png",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  themeColor: "#D4271B",
 };
 
 export default function RootLayout({
