@@ -33,18 +33,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full">
-      <body className="min-h-full bg-gray-50 antialiased">
+      <body className="min-h-full bg-stone-50 antialiased">
         <SerwistProvider swUrl="/serwist/sw.js" disable={process.env.NODE_ENV === "development"}>
-          <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 h-12">
+          <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-100 h-12">
             <div className="flex items-center gap-2 max-w-lg mx-auto h-full px-4">
               <Image
                 src="/mascot.png"
                 alt="상하이 길잡이 마스코트"
-                width={32}
-                height={32}
+                width={28}
+                height={28}
                 className="rounded-full"
               />
-              <span className="text-sm font-bold text-gray-900">상하이 길잡이</span>
+              <span className="text-sm font-bold text-gray-900 tracking-tight">상하이 길잡이</span>
             </div>
           </header>
           <div className="max-w-lg mx-auto min-h-screen relative">{children}</div>
