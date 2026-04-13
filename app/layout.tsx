@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "상하이 길잡이",
   },
   icons: {
-    apple: "/icons/icon-192x192.png",
+    apple: "/mascot.png",
   },
 };
 
