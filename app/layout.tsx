@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import Image from "next/image";
 import BottomNav from "@/components/BottomNav";
+import { SerwistProvider } from "@/components/SerwistProvider";
 
 export const metadata: Metadata = {
   title: "상하이 길잡이",
@@ -32,10 +34,22 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full">
       <body className="min-h-full bg-gray-50 antialiased">
-        <div className="max-w-lg mx-auto min-h-screen relative">
-          {children}
-        </div>
-        <BottomNav />
+        <SerwistProvider swUrl="/serwist/sw.js" disable={process.env.NODE_ENV === "development"}>
+          <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 h-12">
+            <div className="flex items-center gap-2 max-w-lg mx-auto h-full px-4">
+              <Image
+                src="/mascot.png"
+                alt="상하이 길잡이 마스코트"
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+              <span className="text-sm font-bold text-gray-900">상하이 길잡이</span>
+            </div>
+          </header>
+          <div className="max-w-lg mx-auto min-h-screen relative">{children}</div>
+          <BottomNav />
+        </SerwistProvider>
       </body>
     </html>
   );

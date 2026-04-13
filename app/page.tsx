@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, ChevronRight } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import CategoryTabs from "@/components/CategoryTabs";
@@ -26,11 +27,17 @@ export default function HomePage() {
     <main className="pb-24">
       {/* 헤더 */}
       <div className="bg-gradient-to-br from-red-500 to-red-600 px-5 pt-12 pb-8 text-white">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-2xl">🇨🇳</span>
+        <div className="flex flex-col items-center mb-3">
+          <Image
+            src="/mascot.png"
+            alt="상하이콕"
+            width={120}
+            height={120}
+            className="mb-3 drop-shadow-lg"
+          />
           <h1 className="text-xl font-bold tracking-tight">상하이 여행 가이드</h1>
         </div>
-        <p className="text-red-100 text-sm leading-relaxed">
+        <p className="text-red-100 text-sm leading-relaxed text-center">
           중국어 주소를 쉽게 복사하고<br />
           고덕지도에서 바로 열어보세요
         </p>
@@ -81,9 +88,15 @@ export default function HomePage() {
           </div>
 
           {filteredPopular.length === 0 ? (
-            <div className="text-center py-12 text-gray-400">
-              <p className="text-4xl mb-2">🔍</p>
-              <p className="text-sm">검색 결과가 없습니다</p>
+            <div className="text-center py-12 text-gray-400 flex flex-col items-center">
+              <Image
+                src="/mascot.png"
+                alt="상하이콕"
+                width={80}
+                height={80}
+                className="mb-3 opacity-60"
+              />
+              <p className="text-sm text-gray-400">장소를 찾을 수 없어요</p>
             </div>
           ) : (
             <div className="flex flex-col gap-3">

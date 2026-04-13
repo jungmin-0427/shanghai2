@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import SearchBar from "@/components/SearchBar";
 import CategoryTabs from "@/components/CategoryTabs";
 import ShanghaiMap from "@/components/ShanghaiMap";
@@ -32,7 +33,7 @@ function PlacesContent() {
   return (
     <main className="pb-24">
       {/* 헤더 */}
-      <div className="bg-white border-b border-gray-100 px-4 pt-12 pb-3 sticky top-0 z-30">
+      <div className="bg-white border-b border-gray-100 px-4 pt-4 pb-3 sticky top-12 z-30">
         <h1 className="text-lg font-bold text-gray-900 mb-3">장소 탐색</h1>
         <div className="mb-3">
           <SearchBar value={query} onChange={setQuery} />
@@ -62,9 +63,15 @@ function PlacesContent() {
       {/* 리스트 */}
       <div className="px-4">
         {filtered.length === 0 ? (
-          <div className="text-center py-16 text-gray-400">
-            <p className="text-5xl mb-3">🔍</p>
-            <p className="text-sm font-medium mb-1">검색 결과가 없어요</p>
+          <div className="text-center py-16 text-gray-400 flex flex-col items-center">
+            <Image
+              src="/mascot.png"
+              alt="상하이콕"
+              width={80}
+              height={80}
+              className="mb-3 opacity-60"
+            />
+            <p className="text-sm font-medium mb-1 text-gray-400">장소를 찾을 수 없어요</p>
             <p className="text-xs text-gray-400">다른 키워드나 필터를 시도해보세요</p>
           </div>
         ) : (
