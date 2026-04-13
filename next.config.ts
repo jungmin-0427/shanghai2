@@ -1,11 +1,8 @@
-import withSerwistInit from "@serwist/next";
+import type { NextConfig } from "next";
+import { withSerwist } from "@serwist/turbopack";
 
-const withSerwist = withSerwistInit({
-  swSrc: "app/sw.ts",
-  swDest: "public/sw.js",
-  disable: process.env.NODE_ENV === "development",
-});
+const nextConfig: NextConfig = {
+  // Turbopack이 기본 번들러입니다. webpack 전용 설정은 사용하지 않습니다.
+};
 
-export default withSerwist({
-  /* config options here */
-});
+export default withSerwist(nextConfig);

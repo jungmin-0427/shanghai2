@@ -15,9 +15,12 @@ interface PlaceDetailModalProps {
 export default function PlaceDetailModal({ place, onClose, onCopied }: PlaceDetailModalProps) {
   const [copied, setCopied] = useState(false);
 
+  const addressText = place.addressZh?.trim() || "주소 정보 없음";
+  const copyPayload = place.addressZh?.trim() || `${place.nameZh} 上海市`;
+
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(place.addressZh);
+      await navigator.clipboard.writeText(copyPayload);
       setCopied(true);
       onCopied?.(`"${place.nameKo}" 주소 복사 완료!`);
       setTimeout(() => setCopied(false), 2000);
@@ -63,7 +66,7 @@ export default function PlaceDetailModal({ place, onClose, onCopied }: PlaceDeta
             <MapPin className="w-3.5 h-3.5 text-gray-400" />
             <span className="text-xs text-gray-400 font-medium">중국어 주소</span>
           </div>
-          <p className="text-sm text-gray-700 leading-relaxed break-all font-medium">{place.addressZh}</p>
+          <p className="text-sm text-gray-700 leading-relaxed break-all font-medium">{addressText}</p>
         </div>
 
         <div className="flex gap-2">

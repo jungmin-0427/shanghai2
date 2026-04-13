@@ -1,8 +1,13 @@
+/// <reference no-default-lib="true" />
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+
+import { defaultCache } from "@serwist/turbopack/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { CacheFirst, Serwist } from "serwist";
+import { Serwist } from "serwist";
 
 declare global {
-  interface ServiceWorkerGlobalScope extends SerwistGlobalConfig {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
   }
 }
@@ -14,19 +19,7 @@ const serwist = new Serwist({
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching: [
-    {
-      matcher: /^https?.*/,
-      handler: new CacheFirst({
-        cacheName: "shanghai-guide-cache",
-        plugins: [
-          {
-            cacheDidUpdate: async () => {},
-          },
-        ],
-      }),
-    },
-  ],
+  runtimeCaching: defaultCache,
   fallbacks: {
     entries: [
       {

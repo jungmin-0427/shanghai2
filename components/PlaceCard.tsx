@@ -15,10 +15,13 @@ interface PlaceCardProps {
 export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) {
   const [copied, setCopied] = useState(false);
 
+  const addressText = place.addressZh?.trim() || "주소 정보 없음";
+  const copyPayload = place.addressZh?.trim() || `${place.nameZh} 上海市`;
+
   async function handleCopy(e: React.MouseEvent) {
     e.stopPropagation();
     try {
-      await navigator.clipboard.writeText(place.addressZh);
+      await navigator.clipboard.writeText(copyPayload);
       setCopied(true);
       onCopied?.(`"${place.nameKo}" 주소 복사 완료!`);
       setTimeout(() => setCopied(false), 2000);
@@ -62,7 +65,7 @@ export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) 
 
       <div className="flex items-start gap-1.5 mb-3 bg-gray-50 rounded-lg px-3 py-2">
         <MapPin className="w-3.5 h-3.5 text-gray-400 mt-0.5 shrink-0" />
-        <p className="text-xs text-gray-600 leading-relaxed break-all">{place.addressZh}</p>
+        <p className="text-xs text-gray-600 leading-relaxed break-all">{addressText}</p>
       </div>
 
       <div className="flex gap-2">
