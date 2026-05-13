@@ -24,6 +24,7 @@ export type Area =
   | "티엔쯔팡"
   | "푸동"
   | "창러루"
+  | "우캉루"
   | "디즈니";
 
 export type Place = {
@@ -146,7 +147,7 @@ export const places: Place[] = [
   {
     id: "l10",
     category: "landmark",
-    area: "창러루",
+    area: "우캉루",
     nameKo: "우캉루",
     nameZh: "武康路",
     addressZh: "上海市徐汇区武康路",
@@ -157,7 +158,7 @@ export const places: Place[] = [
   {
     id: "l11",
     category: "landmark",
-    area: "창러루",
+    area: "우캉루",
     nameKo: "우캉맨션",
     nameZh: "武康大楼",
     addressZh: "上海市徐汇区淮海中路1850号",
@@ -566,11 +567,11 @@ export const places: Place[] = [
   {
     id: "c12",
     category: "cafe",
-    area: "창러루",
+    area: "우캉루",
     nameKo: "모어요거트",
     nameZh: "茉酸奶",
     addressZh: "上海市徐汇区武康路378号",
-    description: "요거트 드링크 체인(우캉루·창러루권 기준).",
+    description: "진한 요거트 기반 스무디 드링크 체인. 우캉루 산책 중 들르기 좋은 현지 인기 음료.",
     popularity: 80,
   },
   {
@@ -849,6 +850,85 @@ export const places: Place[] = [
     description: "배달 플랫폼·대행(입력 데이터 기준).",
     popularity: 65,
   },
+  // --- 우캉루 신규 ---
+  {
+    id: "l16",
+    category: "landmark",
+    area: "우캉루",
+    nameKo: "안푸루",
+    nameZh: "安福路",
+    addressZh: "上海市徐汇区安福路",
+    description: "우캉루 옆 아담한 골목길. 독립 카페·편집샵·빈티지숍이 늘어선 상하이 MZ 핫플.",
+    popularity: 85,
+    amapLocation: "121.4390,31.2145",
+  },
+  {
+    id: "c16",
+    category: "cafe",
+    area: "우캉루",
+    nameKo: "13DE MARZO",
+    nameZh: "13DE MARZO",
+    addressZh: "上海市徐汇区安福路185号",
+    description: "컵에 테디베어 인형을 꽂아주는 인스타 핫플 카페. 안푸루 대표 사진 명소.",
+    popularity: 88,
+    amapLocation: "121.4398,31.2151",
+  },
+  {
+    id: "c17",
+    category: "cafe",
+    area: "우캉루",
+    nameKo: "버디컵커피",
+    nameZh: "小鸟杯咖啡",
+    addressZh: "上海市徐汇区武康路210号",
+    description: "우캉루 골목 스페셜티 카페. 포티드플랜트 라떼·민트 더티로 한국인 여행자에게 인기.",
+    popularity: 84,
+    amapLocation: "121.4358,31.2135",
+  },
+  {
+    id: "r25",
+    category: "restaurant",
+    area: "우캉루",
+    nameKo: "리한식부",
+    nameZh: "藜涵食府",
+    addressZh: "上海市徐汇区武康路390号",
+    description: "우캉루 훈툰(완탕) 맛집. 자극 없는 깔끔한 국물로 현지인·여행자 모두 즐겨 찾는 곳.",
+    popularity: 82,
+    amapLocation: "121.4335,31.2108",
+  },
+  // --- 창러루 신규 ---
+  {
+    id: "l17",
+    category: "landmark",
+    area: "창러루",
+    nameKo: "창러루",
+    nameZh: "长乐路",
+    addressZh: "上海市静安区长乐路",
+    description: "플라타너스 가로수가 이어지는 프렌치 조계지 로컬 산책로. 조용한 골목 분위기.",
+    popularity: 81,
+    amapLocation: "121.4530,31.2190",
+  },
+  {
+    id: "r26",
+    category: "restaurant",
+    area: "창러루",
+    nameKo: "제스 레스토랑",
+    nameZh: "吉士酒家",
+    addressZh: "上海市徐汇区天平路41号",
+    description: "상하이 본토 가정식 대표 노포. 홍소육·게살두부죽·파기름 볶음면으로 유명. 한국인 필수 맛집.",
+    popularity: 86,
+    amapLocation: "121.4455,31.2145",
+  },
+  {
+    id: "c18",
+    category: "cafe",
+    area: "창러루",
+    nameKo: "OPS 커피",
+    nameZh: "OPS Coffee",
+    addressZh: "上海市静安区长乐路82号",
+    description: "스페셜티 원두 기반 시그니처 음료가 유명한 현지 인기 카페. 퍼플 머스카트 추천.",
+    popularity: 83,
+    amapLocation: "121.4535,31.2188",
+  },
 ];
 
 export const CATEGORIES: { value: Category | "all"; label: string; emoji: string }[] = [
@@ -873,5 +953,6 @@ export const AREAS: { value: Area | "all"; label: string }[] = [
   { value: "티엔쯔팡", label: "티엔쯔팡" },
   { value: "푸동", label: "푸동" },
   { value: "창러루", label: "창러루" },
+  { value: "우캉루", label: "우캉루" },
   { value: "디즈니", label: "디즈니" },
 ];

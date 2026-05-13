@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Copy, MapPin, Check } from "lucide-react";
+import { Copy, Map, MapPin } from "lucide-react";
 import type { Place } from "@/data/places";
 import { getAmapDirectUrl } from "@/lib/amap";
 import { CATEGORY_COLOR, CATEGORY_LABEL, CATEGORY_EMOJI } from "@/lib/utils";
@@ -13,8 +12,6 @@ interface PlaceCardProps {
 }
 
 export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) {
-  const [copied, setCopied] = useState(false);
-
   const addressText = place.addressZh?.trim() || "주소 정보 없음";
   const copyPayload = place.addressZh?.trim() || `${place.nameZh} 上海市`;
 
@@ -22,9 +19,7 @@ export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) 
     e.stopPropagation();
     try {
       await navigator.clipboard.writeText(copyPayload);
-      setCopied(true);
       onCopied?.(`"${place.nameKo}" 주소 복사 완료!`);
-      setTimeout(() => setCopied(false), 2000);
     } catch {
       onCopied?.("클립보드 복사에 실패했습니다.");
     }
@@ -71,17 +66,16 @@ export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) 
       <div className="flex gap-2">
         <button
           onClick={handleCopy}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium transition-all
-            ${copied ? "bg-green-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300"}`}
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium transition-all bg-red-50 text-red-400 hover:bg-red-100 active:bg-red-100"
         >
-          {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-          {copied ? "복사됨" : "주소 복사"}
+          <Copy className="w-4 h-4" />
+          주소 복사
         </button>
         <button
           onClick={handleAmap}
           className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium bg-red-500 text-white hover:bg-red-600 active:bg-red-700 transition-all"
         >
-          <MapPin className="w-4 h-4" />
+          <Map className="w-4 h-4" />
           고덕지도 열기
         </button>
       </div>

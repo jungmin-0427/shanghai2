@@ -47,3 +47,33 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@keyframes floatUpDown {
+  from { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+  to   { transform: translateY(-8px) rotate(var(--rotation, 0deg)); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fadeScaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}

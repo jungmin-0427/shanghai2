@@ -15,15 +15,14 @@ export function filterPlaces(
   return places.filter((place) => {
     const matchCategory = category === "all" || place.category === category;
     const matchArea = area === "all" || place.area === area;
-    const q = query.trim().toLowerCase();
-    const addr = place.addressZh?.toLowerCase() ?? "";
+
+    const normalize = (s: string) => s.trim().toLowerCase().normalize("NFC");
+    const q = normalize(query);
     const matchQuery =
       !q ||
-      place.nameKo.toLowerCase().includes(q) ||
-      place.nameZh.toLowerCase().includes(q) ||
-      place.area.toLowerCase().includes(q) ||
-      addr.includes(q) ||
-      (place.description?.toLowerCase().includes(q) ?? false);
+      normalize(place.nameKo).includes(q) ||
+      normalize(place.nameZh).includes(q);
+
     return matchCategory && matchArea && matchQuery;
   });
 }

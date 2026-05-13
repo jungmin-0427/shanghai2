@@ -6,7 +6,7 @@ import { Home, MapPin } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "홈", icon: Home },
-  { href: "/places", label: "장소탐색", icon: MapPin },
+  { href: "/places", label: "탐색", icon: MapPin },
 ];
 
 export default function BottomNav() {
