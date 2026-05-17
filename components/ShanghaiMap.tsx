@@ -86,8 +86,8 @@ const REGIONS: RegionDef[] = [
     fontSize: 9,
   },
   {
-    id: "푸동",
-    label: "푸동",
+    id: "루자주이",
+    label: "루자주이",
     points: "190,22 272,22 272,255 190,255",
     cx: 231,
     cy: 138,

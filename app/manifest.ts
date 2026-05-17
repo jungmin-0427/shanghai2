@@ -21,7 +21,13 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/appicon.png",
         sizes: "512x512",
         type: "image/png",
-        purpose: "any maskable",
+        purpose: "any",
+      },
+      {
+        src: "/appicon.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
       },
     ],
   };

@@ -25,7 +25,7 @@ const WEST_PINS: AreaPin[] = [
 ];
 
 const EAST_PINS: AreaPin[] = [
-  { id: "푸동",   label: "푸동",     cx: 256, cy: 196 },
+  { id: "루자주이",   label: "루자주이",     cx: 256, cy: 196 },
   { id: "디즈니", label: "디즈니",   cx: 306, cy: 370 },
 ];
 
