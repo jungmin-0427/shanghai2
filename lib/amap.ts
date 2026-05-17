@@ -8,20 +8,19 @@ function getNativeUrl(place: Place): string {
   const scheme = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iosamap" : "androidamap";
 
   if (hasPoiId(place)) {
-    return `${scheme}://poi?sourceApplication=shanghaicok&poiid=${encodeURIComponent(place.amapPoiId!.trim())}&dev=0`;
+    return `${scheme}://poi?sourceApplication=shanghaicok&businessId=${encodeURIComponent(place.amapPoiId!.trim())}&businessName=${encodeURIComponent(place.nameZh)}&dev=0`;
   }
 
   const loc = place.amapLocation?.trim();
   if (loc) {
     const [lng, lat] = loc.split(",");
     const name = encodeURIComponent(place.nameZh);
-    const addr = encodeURIComponent(place.addressZh ?? "上海");
-    return `${scheme}://poi?sourceApplication=shanghaicok&poiname=${name}&lat=${lat}&lon=${lng}&dev=0&address=${addr}`;
+    // 고덕 공식 스펙: viewMap + poilat/poilon
+    return `${scheme}://viewMap?sourceApplication=shanghaicok&poiname=${name}&poilat=${lat}&poilon=${lng}&dev=0`;
   }
 
-  const name = encodeURIComponent(place.nameZh);
-  const addr = encodeURIComponent(place.addressZh ?? "上海");
-  return `${scheme}://poi?sourceApplication=shanghaicok&keywords=${name}&address=${addr}&dev=0`;
+  // 좌표 없는 장소: 키워드 검색
+  return `${scheme}://poi?sourceApplication=shanghaicok&keywords=${encodeURIComponent(place.nameZh)}&dev=0`;
 }
 
 const STORE_URL = {
