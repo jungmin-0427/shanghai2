@@ -91,6 +91,8 @@ function FloatingElement({ x, y, size, rotation, children }: FloatingElementProp
 
 const TIPS = [
   "핫플 장소들 고덕지도로 바로 연결해요 💫",
+  "상하이 날씨가 궁금하다면 ? ➡️",
+  "1위안은 얼마일까? ➡️",
   "와이탄 야경은 저녁 7시가 최고예요 ✨",
   "디즈니 티켓은 미리 예매하세요! 🎢",
   "예원은 저녁 방문이 더 예뻐요 🏮",
@@ -112,8 +114,8 @@ export default function HeroBanner({ searchValue, onSearchChange }: HeroBannerPr
   const weather = useWeather();
 
   useEffect(() => {
-    // 클라이언트에서만 랜덤 tip 인덱스·날짜 설정 (hydration 오류 방지)
-    setTipIndex(Math.floor(Math.random() * TIPS.length));
+    // 클라이언트에서만 날짜 설정 (hydration 오류 방지), tip은 0번부터 순서대로 노출
+    setTipIndex(0);
     const now = new Date();
     setToday({ month: now.getMonth() + 1, day: now.getDate() });
 
@@ -126,7 +128,7 @@ export default function HeroBanner({ searchValue, onSearchChange }: HeroBannerPr
   return (
     <div className="relative h-[250px] overflow-hidden bg-gradient-to-b from-red-50 to-white">
       {/* 상단 중앙 말풍선 */}
-      <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute top-7 left-1/2 -translate-x-1/2 z-10">
         <div className="bg-amber-50 border border-amber-100 rounded-2xl px-3 py-1.5 shadow-sm whitespace-nowrap">
           <p className="text-[11px] font-medium text-gray-600 leading-snug">
             {TIPS[tipIndex]}
@@ -135,26 +137,26 @@ export default function HeroBanner({ searchValue, onSearchChange }: HeroBannerPr
       </div>
 
       {/* 우측 상단 통합 pill 버튼 */}
-      <div className="absolute top-3 right-3 z-10 flex items-center bg-white/90 backdrop-blur-sm rounded-full border border-gray-400 shadow-sm overflow-hidden">
+      <div className="absolute top-3 right-3 z-10 flex items-center bg-white/90 backdrop-blur-sm rounded-full border border-gray-200 shadow-sm overflow-hidden">
         <button
           onClick={() => setWeatherOpen(true)}
-          className="flex items-center justify-center px-3 py-1.5 active:bg-gray-100 transition-colors"
+          className={`flex items-center justify-center px-3 py-1.5 transition-colors ${weatherOpen ? "bg-red-500" : "active:bg-gray-100"}`}
           aria-label="날씨 보기"
         >
-          <span className="text-xs font-medium text-gray-700">날씨</span>
+          <span className={`text-xs font-semibold transition-colors ${weatherOpen ? "text-white" : "text-gray-700"}`}>날씨</span>
         </button>
-        <div className="w-px h-4 bg-gray-500" />
+        <div className="w-px h-4 bg-gray-200" />
         <button
           onClick={() => setExchangeOpen(true)}
-          className="flex items-center justify-center px-3 py-1.5 active:bg-gray-100 transition-colors"
+          className={`flex items-center justify-center px-3 py-1.5 transition-colors ${exchangeOpen ? "bg-red-500" : "active:bg-gray-100"}`}
           aria-label="환율 계산기"
         >
-          <span className="text-xs font-medium text-gray-700">환율</span>
+          <span className={`text-xs font-semibold transition-colors ${exchangeOpen ? "text-white" : "text-gray-700"}`}>환율</span>
         </button>
       </div>
 
       {/* 중앙: 마스코트 */}
-      <div className="absolute inset-x-0 top-7 flex flex-col items-center">
+      <div className="absolute inset-x-0 top-16 flex flex-col items-center">
         <Image
           src="/mascot2.png"
           alt="마스코트"
@@ -174,15 +176,15 @@ export default function HeroBanner({ searchValue, onSearchChange }: HeroBannerPr
       <ExchangeSheet isOpen={exchangeOpen} onClose={() => setExchangeOpen(false)} />
 
       {/* 왼쪽 열 (x ≤ 25%) */}
-      <FloatingElement x={15} y={5}  size="text-2xl" rotation={5}>🏯</FloatingElement>
-      <FloatingElement x={20} y={22} size="text-3xl" rotation={-15}>🗼</FloatingElement>
-      <FloatingElement x={32} y={36} size="text-2xl" rotation={-5}>🥢</FloatingElement>
-      <FloatingElement x={15} y={50} size="text-2xl" rotation={-5}>🍵</FloatingElement>
+      <FloatingElement x={7.5} y={30}  size="text-2xl" rotation={5}>🏯</FloatingElement>
+      <FloatingElement x={20} y={27} size="text-3xl" rotation={-15}>🗼</FloatingElement>
+      <FloatingElement x={32} y={41} size="text-2xl" rotation={-5}>🥢</FloatingElement>
+      <FloatingElement x={15} y={55} size="text-2xl" rotation={-5}>🍵</FloatingElement>
 
       {/* 오른쪽 열 (x ≥ 72%) */}
-      <FloatingElement x={65} y={50} size="text-2xl" rotation={10}>🥟</FloatingElement>
-      <FloatingElement x={70} y={28} size="text-2xl" rotation={15}>🍜</FloatingElement>
-      <FloatingElement x={80} y={50} size="text-xl"  rotation={8}>🛍️</FloatingElement>
+      <FloatingElement x={65} y={55} size="text-2xl" rotation={10}>🥟</FloatingElement>
+      <FloatingElement x={70} y={33} size="text-2xl" rotation={15}>🍜</FloatingElement>
+      <FloatingElement x={80} y={55} size="text-xl"  rotation={8}>🛍️</FloatingElement>
     </div>
   );
 }

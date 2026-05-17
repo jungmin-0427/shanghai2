@@ -2,6 +2,14 @@
 @source "../app/**/*.{ts,tsx}";
 @source "../components/**/*.{ts,tsx}";
 
+@font-face {
+  font-family: "Cocochoitoon";
+  src: url("/fonts/Griun_Cocochoitoon-Rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #f8f8f8;
   --foreground: #171717;

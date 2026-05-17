@@ -15,10 +15,13 @@ function getNativeUrl(place: Place): string {
   if (loc) {
     const [lng, lat] = loc.split(",");
     const name = encodeURIComponent(place.nameZh);
-    return `${scheme}://viewMap?sourceApplication=shanghaicok&poiname=${name}&lat=${lat}&lon=${lng}&dev=0`;
+    const addr = encodeURIComponent(place.addressZh ?? "上海");
+    return `${scheme}://poi?sourceApplication=shanghaicok&poiname=${name}&lat=${lat}&lon=${lng}&dev=0&address=${addr}`;
   }
 
-  return `${scheme}://poi?sourceApplication=shanghaicok&keywords=${encodeURIComponent(place.nameZh)}&dev=0`;
+  const name = encodeURIComponent(place.nameZh);
+  const addr = encodeURIComponent(place.addressZh ?? "上海");
+  return `${scheme}://poi?sourceApplication=shanghaicok&keywords=${name}&address=${addr}&dev=0`;
 }
 
 const STORE_URL = {
@@ -37,19 +40,26 @@ export function openAmap(place: Place): void {
   }
 
   const storeUrl = isIOS ? STORE_URL.ios : STORE_URL.android;
+  let appOpened = false;
 
-  // 네이티브 스킴으로 바로 앱 실행 시도
+  // 앱이 열리면 blur 또는 visibilitychange 중 하나가 먼저 감지됨
+  const onBlur = () => { appOpened = true; };
+  const onVisibility = () => { if (document.hidden) appOpened = true; };
+
+  window.addEventListener("blur", onBlur, { once: true });
+  document.addEventListener("visibilitychange", onVisibility, { once: true });
+
+  // 네이티브 스킴으로 앱 실행 시도
   window.location.href = getNativeUrl(place);
 
-  // 앱 미설치 시 1.5초 후 스토어로 이동
-  const timer = setTimeout(() => {
-    window.open(storeUrl, "_blank");
-  }, 1500);
-
-  // 앱이 열리면 페이지가 hidden 상태로 전환 → 타이머 취소
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) clearTimeout(timer);
-  }, { once: true });
+  // 2초 후에도 앱 전환이 감지되지 않으면 앱 미설치로 판단 → 스토어로 이동 (같은 탭, 팝업 없음)
+  setTimeout(() => {
+    window.removeEventListener("blur", onBlur);
+    document.removeEventListener("visibilitychange", onVisibility);
+    if (!appOpened) {
+      window.location.href = storeUrl;
+    }
+  }, 2000);
 }
 
 export function getAmapUrl(place: Place): string {

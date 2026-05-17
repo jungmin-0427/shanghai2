@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
-import SearchBar from "@/components/SearchBar";
 import ImageAreaMap from "@/components/ImageAreaMap";
 import PlaceCard from "@/components/PlaceCard";
 import Toast, { type ToastData } from "@/components/Toast";
@@ -14,7 +13,6 @@ import { filterPlaces, sortByPopularity } from "@/lib/utils";
 
 function PlacesContent() {
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState("");
   const [category, setCategory] = useState<Category | "all">("all");
   const [area, setArea] = useState<Area | "all">("all");
   const [areasExpanded, setAreasExpanded] = useState(false);
@@ -35,18 +33,17 @@ function PlacesContent() {
     }, 50);
   }
 
-  const filtered = sortByPopularity(filterPlaces(places, { query, category, area }));
+  const filtered = sortByPopularity(filterPlaces(places, { query: "", category, area }));
 
   return (
     <main className="pt-12 pb-24 bg-stone-50">
-      {/* 검색창 */}
-      <div className="bg-white border-b border-gray-100 px-4 pt-4 pb-4 sticky top-12 z-30 shadow-sm">
-        <SearchBar value={query} onChange={setQuery} />
+      {/* 페이지 타이틀 */}
+      <div className="px-4 pt-4 pb-2">
+        <h1 className="text-lg font-bold text-gray-900">탐색</h1>
       </div>
 
-      {/* 주요 지역 */}
-      <h2 className="text-sm font-bold text-black px-4 pt-4 pb-2">주요 지역</h2>
-      <div className="bg-white mx-4 rounded-2xl border border-gray-100 shadow-sm px-4 pt-3 pb-3 mb-4">
+      {/* 지역 필터 */}
+      <div className="bg-white mx-4 mt-4 rounded-2xl border border-gray-100 shadow-sm px-4 pt-3 pb-3 mb-4">
         <div className="grid grid-cols-3 gap-2">
           {AREAS.filter((a) => a.value !== "all")
             .slice(0, areasExpanded ? undefined : 3)
