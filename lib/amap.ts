@@ -5,28 +5,17 @@ function hasPoiId(place: Place): boolean {
 }
 
 function getNativeUrl(place: Place): string {
-  const scheme = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iosamap" : "androidamap";
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const scheme = isIOS ? "iosamap" : "androidamap";
+  const keywords = encodeURIComponent(place.addressZh ?? place.nameZh);
 
-  if (hasPoiId(place)) {
-    return `${scheme}://poi?sourceApplication=shanghaicok&businessId=${encodeURIComponent(place.amapPoiId!.trim())}&businessName=${encodeURIComponent(place.nameZh)}&dev=0`;
-  }
-
-  const loc = place.amapLocation?.trim();
-  if (loc) {
-    const [lng, lat] = loc.split(",");
-    const name = encodeURIComponent(place.nameZh);
-    // 고덕 공식 스펙: viewMap + poilat/poilon
-    return `${scheme}://viewMap?sourceApplication=shanghaicok&poiname=${name}&poilat=${lat}&poilon=${lng}&dev=0`;
-  }
-
-  // 좌표 없는 장소: 키워드 검색
-  return `${scheme}://poi?sourceApplication=shanghaicok&keywords=${encodeURIComponent(place.nameZh)}&dev=0`;
+  return `${scheme}://poi?keywords=${keywords}&dev=0`;
 }
 
-const STORE_URL = {
-  ios: "https://apps.apple.com/cn/app/id461703208",
-  android: "https://play.google.com/store/search?q=amap&c=apps",
-};
+function getWebFallbackUrl(place: Place): string {
+  const address = encodeURIComponent(place.addressZh ?? place.nameZh);
+  return `https://uri.amap.com/search?keyword=${address}`;
+}
 
 export function openAmap(place: Place): void {
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
@@ -34,14 +23,12 @@ export function openAmap(place: Place): void {
   const isAndroid = /Android/i.test(ua);
 
   if (!isIOS && !isAndroid) {
-    window.open(getAmapUrl(place), "_blank");
+    window.open(getWebFallbackUrl(place), "_blank");
     return;
   }
 
-  const storeUrl = isIOS ? STORE_URL.ios : STORE_URL.android;
   let appOpened = false;
 
-  // 앱이 열리면 blur 또는 visibilitychange 중 하나가 먼저 감지됨
   const onBlur = () => { appOpened = true; };
   const onVisibility = () => { if (document.hidden) appOpened = true; };
 
@@ -51,12 +38,12 @@ export function openAmap(place: Place): void {
   // 네이티브 스킴으로 앱 실행 시도
   window.location.href = getNativeUrl(place);
 
-  // 2초 후에도 앱 전환이 감지되지 않으면 앱 미설치로 판단 → 스토어로 이동 (같은 탭, 팝업 없음)
+  // 2초 후에도 앱 전환 미감지 → 앱 미설치로 판단, 웹 버전으로 폴백
   setTimeout(() => {
     window.removeEventListener("blur", onBlur);
     document.removeEventListener("visibilitychange", onVisibility);
     if (!appOpened) {
-      window.location.href = storeUrl;
+      window.location.href = getWebFallbackUrl(place);
     }
   }, 2000);
 }
