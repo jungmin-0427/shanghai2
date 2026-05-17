@@ -8,17 +8,17 @@ function getNativeUrl(place: Place): string {
   const scheme = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iosamap" : "androidamap";
 
   if (hasPoiId(place)) {
-    return `${scheme}://poi?sourceApplication=shanghaitrip&poiid=${encodeURIComponent(place.amapPoiId!.trim())}&dev=0`;
+    return `${scheme}://poi?sourceApplication=shanghaicok&poiid=${encodeURIComponent(place.amapPoiId!.trim())}&dev=0`;
   }
 
   const loc = place.amapLocation?.trim();
   if (loc) {
     const [lng, lat] = loc.split(",");
     const name = encodeURIComponent(place.nameZh);
-    return `${scheme}://viewMap?sourceApplication=shanghaitrip&poiname=${name}&lat=${lat}&lon=${lng}&dev=0`;
+    return `${scheme}://viewMap?sourceApplication=shanghaicok&poiname=${name}&lat=${lat}&lon=${lng}&dev=0`;
   }
 
-  return `${scheme}://poi?sourceApplication=shanghaitrip&keywords=${encodeURIComponent(place.nameZh)}&dev=0`;
+  return `${scheme}://poi?sourceApplication=shanghaicok&keywords=${encodeURIComponent(place.nameZh)}&dev=0`;
 }
 
 const STORE_URL = {
@@ -57,15 +57,15 @@ export function getAmapUrl(place: Place): string {
     return place.amapUrl;
   }
   if (hasPoiId(place)) {
-    return `https://uri.amap.com/poidetail?poiid=${encodeURIComponent(place.amapPoiId!.trim())}&src=shanghaitrip`;
+    return `https://uri.amap.com/poidetail?poiid=${encodeURIComponent(place.amapPoiId!.trim())}&src=shanghaicok`;
   }
   const loc = place.amapLocation?.trim();
   if (loc) {
     const name = encodeURIComponent(place.nameZh);
-    return `https://uri.amap.com/marker?position=${encodeURIComponent(loc)}&name=${name}&coordinate=gaode&src=shanghaitrip`;
+    return `https://uri.amap.com/marker?position=${encodeURIComponent(loc)}&name=${name}&coordinate=gaode&src=shanghaicok`;
   }
   const query = encodeURIComponent(`${place.nameZh} ${place.addressZh ?? "上海"}`);
-  return `https://uri.amap.com/search?keyword=${query}&src=shanghaitrip`;
+  return `https://uri.amap.com/search?keyword=${query}&src=shanghaicok`;
 }
 
 export function getAmapDirectUrl(place: Place): string {
@@ -73,14 +73,14 @@ export function getAmapDirectUrl(place: Place): string {
     return place.amapUrl;
   }
   if (hasPoiId(place)) {
-    return `https://uri.amap.com/poidetail?poiid=${encodeURIComponent(place.amapPoiId!.trim())}&src=shanghaitrip`;
+    return `https://uri.amap.com/poidetail?poiid=${encodeURIComponent(place.amapPoiId!.trim())}&src=shanghaicok`;
   }
   const loc = place.amapLocation?.trim();
   if (loc) {
     const name = encodeURIComponent(place.nameZh);
-    return `https://uri.amap.com/marker?position=${encodeURIComponent(loc)}&name=${name}&coordinate=gaode&src=shanghaitrip`;
+    return `https://uri.amap.com/marker?position=${encodeURIComponent(loc)}&name=${name}&coordinate=gaode&src=shanghaicok`;
   }
   const name = encodeURIComponent(place.nameZh);
   const address = encodeURIComponent(place.addressZh ?? "上海");
-  return `https://uri.amap.com/search?keyword=${name}&address=${address}&src=shanghaitrip`;
+  return `https://uri.amap.com/search?keyword=${name}&address=${address}&src=shanghaicok`;
 }

@@ -5,14 +5,14 @@ import BottomNav from "@/components/BottomNav";
 import { SerwistProvider } from "@/components/SerwistProvider";
 
 export const metadata: Metadata = {
-  title: "상하이고",
+  title: "상하이콕",
   description: "상하이 인기 맛집·카페·관광지의 중국어 주소를 쉽게 복사하고 고덕지도에서 바로 열어보세요.",
   keywords: "상하이, 여행, 맛집, 카페, 관광지, 중국어 주소, 고덕지도, 가오더지도",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "상하이고",
+    title: "상하이콕",
   },
   icons: {
     apple: "/mascot2.png",
@@ -39,12 +39,12 @@ export default function RootLayout({
             <div className="flex items-center gap-2 max-w-lg mx-auto h-full px-4">
               <Image
                 src="/mascot2.png"
-                alt="상하이고 마스코트"
+                alt="상하이콕 마스코트"
                 width={28}
                 height={28}
                 className="rounded-full"
               />
-              <span className="text-sm font-bold text-gray-900 tracking-tight">상하이고</span>
+              <span className="text-sm font-bold text-gray-900 tracking-tight">상하이콕</span>
             </div>
           </header>
           <div className="max-w-lg mx-auto min-h-screen relative">{children}</div>
