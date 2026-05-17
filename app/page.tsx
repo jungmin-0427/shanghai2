@@ -7,7 +7,7 @@ import { ChevronRight } from "lucide-react";
 import CategoryTabs from "@/components/CategoryTabs";
 import HeroBanner from "@/components/HeroBanner";
 import PlaceCard from "@/components/PlaceCard";
-import Toast from "@/components/Toast";
+import Toast, { type ToastData } from "@/components/Toast";
 import { places } from "@/data/places";
 import type { Category } from "@/data/places";
 import { filterPlaces, sortByPopularity } from "@/lib/utils";
@@ -17,7 +17,7 @@ const popularPlaces = sortByPopularity(places).slice(0, 6);
 export default function HomePage() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<Category | "all">("all");
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<ToastData | null>(null);
 
   // 검색어·카테고리 필터 적용 시 전체 데이터에서 검색, 아닐 때는 인기 상위 6개
   const isFiltering = query.trim() !== "" || category !== "all";
@@ -83,7 +83,7 @@ export default function HomePage() {
         </section>
       </div>
 
-{toast && <Toast message={toast} onClose={() => setToast(null)} />}
+{toast && <Toast data={toast} onClose={() => setToast(null)} />}
     </main>
   );
 }

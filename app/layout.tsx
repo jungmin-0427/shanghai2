@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "상하이콕",
   },
   icons: {
-    apple: "/mascot2.png",
+    apple: "/appicon.png",
   },
 };
 
@@ -38,7 +38,7 @@ export default function RootLayout({
           <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-100 h-12">
             <div className="flex items-center gap-2 max-w-lg mx-auto h-full px-4">
               <Image
-                src="/mascot2.png"
+                src="/appicon.png"
                 alt="상하이콕 마스코트"
                 width={28}
                 height={28}

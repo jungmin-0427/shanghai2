@@ -7,7 +7,7 @@ import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import ImageAreaMap from "@/components/ImageAreaMap";
 import PlaceCard from "@/components/PlaceCard";
-import Toast from "@/components/Toast";
+import Toast, { type ToastData } from "@/components/Toast";
 import { places, AREAS } from "@/data/places";
 import type { Category, Area } from "@/data/places";
 import { filterPlaces, sortByPopularity } from "@/lib/utils";
@@ -18,7 +18,7 @@ function PlacesContent() {
   const [category, setCategory] = useState<Category | "all">("all");
   const [area, setArea] = useState<Area | "all">("all");
   const [areasExpanded, setAreasExpanded] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<ToastData | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -131,7 +131,7 @@ function PlacesContent() {
         )}
       </div>
 
-      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
+      {toast && <Toast data={toast} onClose={() => setToast(null)} />}
     </main>
   );
 }

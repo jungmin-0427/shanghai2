@@ -5,11 +5,12 @@ import { X, MapPin, Copy, Check, ExternalLink } from "lucide-react";
 import type { Place } from "@/data/places";
 import { openAmap } from "@/lib/amap";
 import { CATEGORY_COLOR, CATEGORY_LABEL, CATEGORY_EMOJI } from "@/lib/utils";
+import type { ToastData } from "@/components/Toast";
 
 interface PlaceDetailModalProps {
   place: Place;
   onClose: () => void;
-  onCopied?: (message: string) => void;
+  onCopied?: (data: ToastData) => void;
 }
 
 export default function PlaceDetailModal({ place, onClose, onCopied }: PlaceDetailModalProps) {
@@ -22,10 +23,10 @@ export default function PlaceDetailModal({ place, onClose, onCopied }: PlaceDeta
     try {
       await navigator.clipboard.writeText(copyPayload);
       setCopied(true);
-      onCopied?.(`"${place.nameKo}" 주소 복사 완료!`);
+      onCopied?.({ label: place.nameKo, message: "주소 복사 완료!" });
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      onCopied?.("클립보드 복사에 실패했습니다.");
+      onCopied?.({ message: "클립보드 복사에 실패했습니다." });
     }
   }
 

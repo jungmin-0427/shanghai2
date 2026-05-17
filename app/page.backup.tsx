@@ -8,7 +8,7 @@ import SearchBar from "@/components/SearchBar";
 import CategoryTabs from "@/components/CategoryTabs";
 import ExchangeRateCard from "@/components/ExchangeRateCard";
 import PlaceCard from "@/components/PlaceCard";
-import Toast from "@/components/Toast";
+import Toast, { type ToastData } from "@/components/Toast";
 import PlaceDetailModal from "@/components/PlaceDetailModal";
 import { places, AREAS } from "@/data/places";
 import type { Category, Area, Place } from "@/data/places";
@@ -28,7 +28,7 @@ const TIPS = [
 export default function HomePage() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<Category | "all">("all");
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<ToastData | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const [tipIndex, setTipIndex] = useState(0);
 
@@ -172,7 +172,7 @@ export default function HomePage() {
         />
       )}
 
-      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
+      {toast && <Toast data={toast} onClose={() => setToast(null)} />}
     </main>
   );
 }
