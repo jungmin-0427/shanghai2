@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { X, MapPin, Copy, Check, ExternalLink } from "lucide-react";
 import type { Place } from "@/data/places";
-import { getAmapDirectUrl } from "@/lib/amap";
+import { openAmap } from "@/lib/amap";
 import { CATEGORY_COLOR, CATEGORY_LABEL, CATEGORY_EMOJI } from "@/lib/utils";
 
 interface PlaceDetailModalProps {
@@ -78,15 +78,13 @@ export default function PlaceDetailModal({ place, onClose, onCopied }: PlaceDeta
             {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             {copied ? "복사 완료!" : "주소 복사"}
           </button>
-          <a
-            href={getAmapDirectUrl(place)}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => openAmap(place)}
             className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold bg-red-500 text-white hover:bg-red-600 transition-all"
           >
             <ExternalLink className="w-4 h-4" />
             고덕지도 열기
-          </a>
+          </button>
         </div>
       </div>
     </div>

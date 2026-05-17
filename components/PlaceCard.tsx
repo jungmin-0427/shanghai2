@@ -2,7 +2,7 @@
 
 import { Copy, Map, MapPin } from "lucide-react";
 import type { Place } from "@/data/places";
-import { getAmapDirectUrl } from "@/lib/amap";
+import { openAmap } from "@/lib/amap";
 import { CATEGORY_COLOR, CATEGORY_LABEL, CATEGORY_EMOJI } from "@/lib/utils";
 
 interface PlaceCardProps {
@@ -27,7 +27,7 @@ export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) 
 
   function handleAmap(e: React.MouseEvent) {
     e.stopPropagation();
-    window.open(getAmapDirectUrl(place), "_blank");
+    openAmap(place);
   }
 
   return (

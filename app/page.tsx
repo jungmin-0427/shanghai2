@@ -3,16 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ChevronRight, ChevronDown, ChevronUp } from "lucide-react";
-import SearchBar from "@/components/SearchBar";
+import { ChevronRight } from "lucide-react";
 import CategoryTabs from "@/components/CategoryTabs";
-import ExchangeRateCard from "@/components/ExchangeRateCard";
 import HeroBanner from "@/components/HeroBanner";
 import PlaceCard from "@/components/PlaceCard";
 import Toast from "@/components/Toast";
-import PlaceDetailModal from "@/components/PlaceDetailModal";
-import { places, AREAS } from "@/data/places";
-import type { Category, Area, Place } from "@/data/places";
+import { places } from "@/data/places";
+import type { Category } from "@/data/places";
 import { filterPlaces, sortByPopularity } from "@/lib/utils";
 
 const popularPlaces = sortByPopularity(places).slice(0, 6);
@@ -21,8 +18,6 @@ export default function HomePage() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<Category | "all">("all");
   const [toast, setToast] = useState<string | null>(null);
-  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const [isAreasExpanded, setIsAreasExpanded] = useState(false);
 
   // 검색어·카테고리 필터 적용 시 전체 데이터에서 검색, 아닐 때는 인기 상위 6개
   const isFiltering = query.trim() !== "" || category !== "all";
@@ -32,70 +27,26 @@ export default function HomePage() {
 
   return (
     <main className="pt-12 pb-24 bg-stone-50">
-      {/* Hero Banner */}
-      <HeroBanner />
+      {/* Hero Banner + 검색창 */}
+      <HeroBanner searchValue={query} onSearchChange={setQuery} />
 
-      {/* 환율 카드 */}
-      <ExchangeRateCard />
-
-      {/* 검색 + 카테고리 — sticky */}
-      <div className="bg-white border-b border-gray-100 px-4 pt-3 pb-2 sticky top-12 z-20 shadow-sm">
-        <SearchBar value={query} onChange={setQuery} />
-        <div className="mt-2">
-          <CategoryTabs selected={category} onChange={setCategory} />
-        </div>
+      {/* 카테고리 — sticky */}
+      <div className="bg-white border-b border-gray-100 pt-2 pb-2 sticky top-12 z-20 shadow-sm">
+        <CategoryTabs selected={category} onChange={setCategory} />
       </div>
 
       <div className="px-4 pt-5">
-        {/* 인기 지역 */}
-        <section className="mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold text-gray-900">주요 지역</h2>
-            <Link
-              href="/places"
-              className="text-xs text-red-500 flex items-center gap-0.5 font-medium"
-            >
-              전체보기 <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            {AREAS.filter((a) => a.value !== "all")
-              .slice(0, isAreasExpanded ? undefined : 3)
-              .map((area) => (
-                <Link
-                  key={area.value}
-                  href={`/places?area=${area.value}`}
-                  className="flex items-center justify-center gap-1.5 py-2.5 bg-white rounded-xl border border-gray-100 shadow-sm text-xs text-gray-700 font-medium hover:border-red-200 hover:text-red-500 transition-all active:scale-95"
-                >
-                  <MapPin className="w-3 h-3 text-red-400" />
-                  {area.label}
-                </Link>
-              ))}
-          </div>
-          <button
-            onClick={() => setIsAreasExpanded((v) => !v)}
-            className="mt-2 w-full flex items-center justify-center gap-1 py-2 text-xs text-gray-400 hover:text-red-400 transition-colors"
-          >
-            {isAreasExpanded ? (
-              <>접기 <ChevronUp className="w-3.5 h-3.5" /></>
-            ) : (
-              <>더보기 <ChevronDown className="w-3.5 h-3.5" /></>
-            )}
-          </button>
-        </section>
-
-        {/* 인기 장소 */}
+        {/* 장소 섹션 */}
         <section>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-bold text-gray-900">
-              주요 장소
-            </h2>
-            <Link
-              href="/places"
-              className="text-xs text-red-500 flex items-center gap-0.5 font-medium"
-            >
-              전체보기 <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex flex-col gap-0.5">
+              <h2 className="text-sm font-bold text-gray-900">
+                {isFiltering ? "검색 결과" : "주요 장소"}
+              </h2>
+              <span className="text-xs text-gray-400">
+                총 <span className="font-semibold text-gray-700">{isFiltering ? filteredPopular.length : places.length}</span>개 장소
+              </span>
+            </div>
           </div>
 
           {filteredPopular.length === 0 ? (
@@ -116,13 +67,12 @@ export default function HomePage() {
                   key={place.id}
                   place={place}
                   onCopied={setToast}
-                  onClick={() => setSelectedPlace(place)}
                 />
               ))}
             </div>
           )}
 
-          {!query && category === "all" && (
+          {!isFiltering && (
             <Link
               href="/places"
               className="mt-4 flex items-center justify-center gap-1.5 w-full py-3 rounded-xl border border-red-200 text-red-500 text-sm font-medium hover:bg-red-50 transition-all"
@@ -133,15 +83,7 @@ export default function HomePage() {
         </section>
       </div>
 
-      {selectedPlace && (
-        <PlaceDetailModal
-          place={selectedPlace}
-          onClose={() => setSelectedPlace(null)}
-          onCopied={setToast}
-        />
-      )}
-
-      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
+{toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </main>
   );
 }

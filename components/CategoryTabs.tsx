@@ -10,12 +10,12 @@ interface CategoryTabsProps {
 
 export default function CategoryTabs({ selected, onChange }: CategoryTabsProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+    <div className="flex gap-2 overflow-x-auto pb-1 px-4 scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x' }}>
       {CATEGORIES.map((cat) => (
         <button
           key={cat.value}
           onClick={() => onChange(cat.value)}
-          className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all
+          className={`flex shrink-0 items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all
             ${
               selected === cat.value
                 ? "bg-red-500 text-white shadow-md"

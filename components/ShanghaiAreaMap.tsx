@@ -134,7 +134,7 @@ export default function ShanghaiAreaMap({ selected, onSelect }: Props) {
           opacity="0.4"
           letterSpacing="0.5"
         >
-          浦西
+          푸시
         </text>
         <text
           x="290" y="26"
@@ -145,7 +145,7 @@ export default function ShanghaiAreaMap({ selected, onSelect }: Props) {
           opacity="0.4"
           letterSpacing="0.5"
         >
-          浦東
+          푸동
         </text>
 
         {/* ── 구역 구분선 ── */}
@@ -266,17 +266,7 @@ export default function ShanghaiAreaMap({ selected, onSelect }: Props) {
           );
         })}
 
-        {/* ── 나침반 ── */}
-        <g opacity="0.45">
-          <circle cx="336" cy="32" r="14" fill="white" stroke="#e5e7eb" strokeWidth="0.8" />
-          <line x1="336" y1="20" x2="336" y2="44" stroke="#e5e7eb" strokeWidth="0.7" />
-          <line x1="322" y1="32" x2="350" y2="32" stroke="#e5e7eb" strokeWidth="0.7" />
-          <polygon points="336,19 333,27 339,27" fill="#ef4444" opacity="0.7" />
-          <polygon points="336,45 333,37 339,37" fill="#9ca3af" opacity="0.5" />
-          <text x="336" y="17" textAnchor="middle" fontSize="6.5" fill="#ef4444" fontWeight="700">N</text>
-        </g>
-
-        {/* ── 참고 안내 ── */}
+{/* ── 참고 안내 ── */}
         <text
           x="8" y="414"
           fontSize="6.5"

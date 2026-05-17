@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
-import CategoryTabs from "@/components/CategoryTabs";
-import ShanghaiAreaMap from "@/components/ShanghaiAreaMap";
+import ImageAreaMap from "@/components/ImageAreaMap";
 import PlaceCard from "@/components/PlaceCard";
 import Toast from "@/components/Toast";
-import { places } from "@/data/places";
+import { places, AREAS } from "@/data/places";
 import type { Category, Area } from "@/data/places";
 import { filterPlaces, sortByPopularity } from "@/lib/utils";
 
@@ -17,7 +17,9 @@ function PlacesContent() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<Category | "all">("all");
   const [area, setArea] = useState<Area | "all">("all");
+  const [areasExpanded, setAreasExpanded] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const areaParam = searchParams.get("area") as Area | null;
@@ -26,32 +28,80 @@ function PlacesContent() {
     if (categoryParam) setCategory(categoryParam);
   }, [searchParams]);
 
+  function handleMapSelect(value: Area | "all") {
+    setArea(value);
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  }
+
   const filtered = sortByPopularity(filterPlaces(places, { query, category, area }));
 
   return (
-    <main className="pb-24">
-      {/* 헤더 */}
-      <div className="bg-white border-b border-gray-100 px-4 pt-4 pb-3 sticky top-12 z-30">
-        <div className="mb-3">
-          <SearchBar value={query} onChange={setQuery} />
+    <main className="pt-12 pb-24 bg-stone-50">
+      {/* 검색창 */}
+      <div className="bg-white border-b border-gray-100 px-4 pt-4 pb-4 sticky top-12 z-30 shadow-sm">
+        <SearchBar value={query} onChange={setQuery} />
+      </div>
+
+      {/* 주요 지역 */}
+      <h2 className="text-sm font-bold text-black px-4 pt-4 pb-2">주요 지역</h2>
+      <div className="bg-white mx-4 rounded-2xl border border-gray-100 shadow-sm px-4 pt-3 pb-3 mb-4">
+        <div className="grid grid-cols-3 gap-2">
+          {AREAS.filter((a) => a.value !== "all")
+            .slice(0, areasExpanded ? undefined : 3)
+            .map((a) => (
+              <button
+                key={a.value}
+                onClick={() => setArea(area === a.value ? "all" : a.value as Area)}
+                className={`flex items-center justify-center gap-1.5 py-2.5 rounded-xl border text-xs font-medium transition-all active:scale-95
+                  ${area === a.value
+                    ? "bg-red-500 text-white border-red-500"
+                    : "bg-stone-50 text-gray-600 border-gray-200 hover:border-red-200 hover:text-red-500"
+                  }`}
+              >
+                <MapPin className="w-3 h-3 shrink-0" />
+                {a.label}
+              </button>
+            ))}
         </div>
-        <CategoryTabs selected={category} onChange={setCategory} />
+        <button
+          onClick={() => setAreasExpanded((v) => !v)}
+          className="mt-2 w-full flex items-center justify-center gap-1 py-1.5 text-xs text-gray-400 hover:text-red-400 transition-colors"
+        >
+          {areasExpanded
+            ? <><ChevronUp className="w-3.5 h-3.5" /> 접기</>
+            : <><ChevronDown className="w-3.5 h-3.5" /> 더보기</>
+          }
+        </button>
       </div>
 
       {/* 상하이 지도 필터 */}
-      <div className="bg-white pt-3 pb-3 border-b border-gray-100">
-        <ShanghaiAreaMap selected={area} onSelect={setArea} />
+      <div className="mx-4 mb-4">
+        <ImageAreaMap selected={area} onSelect={handleMapSelect} />
       </div>
 
       {/* 결과 카운트 */}
-      <div className="px-4 py-3">
-        <p className="text-xs text-gray-500">
-          {filtered.length > 0 ? (
-            <>
-              총 <span className="font-semibold text-gray-800">{filtered.length}</span>개 장소
-            </>
-          ) : null}
-        </p>
+      <div ref={resultsRef} className="px-4 pb-2">
+        {area !== "all" && (
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-xs font-semibold text-red-500">
+              <MapPin className="w-3 h-3" />
+              {area}
+            </span>
+            <button
+              onClick={() => setArea("all")}
+              className="text-xs text-gray-400 hover:text-red-400 transition-colors"
+            >
+              초기화
+            </button>
+          </div>
+        )}
+        {filtered.length > 0 && (
+          <p className="text-xs text-gray-400">
+            총 <span className="font-semibold text-gray-700">{filtered.length}</span>개 장소
+          </p>
+        )}
       </div>
 
       {/* 리스트 */}

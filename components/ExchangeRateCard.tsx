@@ -5,7 +5,7 @@ import { ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
 
 const CACHE_KEY = "exchange_rate_cache";
 const CACHE_TTL = 30 * 60 * 1000; // 30분 (ms)
-const API_URL = "https://api.frankfurter.dev/v1/latest?from=CNY&to=KRW";
+const API_URL = "/api/exchange-rate";
 
 interface CacheData {
   rate: number;
@@ -64,7 +64,7 @@ export default function ExchangeRateCard() {
       const res = await fetch(API_URL);
       if (!res.ok) throw new Error("API 오류");
       const json = await res.json();
-      const fetchedRate: number = json.rates.KRW;
+      const fetchedRate: number = json.rate;
       setRate(fetchedRate);
       saveCache(fetchedRate);
       setUpdatedAt(new Date().toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" }));

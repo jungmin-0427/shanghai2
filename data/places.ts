@@ -22,10 +22,13 @@ export type Area =
   | "징안사"
   | "칭푸"
   | "티엔쯔팡"
-  | "푸동"
+  | "루자주이"
+  | "푸동신구"
   | "창러루"
   | "우캉루"
-  | "디즈니";
+  | "디즈니"
+  | "푸동국제공항"
+  | "세기공원";
 
 export type Place = {
   id: string;
@@ -70,7 +73,7 @@ export const places: Place[] = [
   {
     id: "l3",
     category: "landmark",
-    area: "푸동",
+    area: "루자주이",
     nameKo: "동방명주 타워",
     nameZh: "东方明珠广播电视塔",
     addressZh: "上海市浦东新区世纪大道1号",
@@ -125,7 +128,7 @@ export const places: Place[] = [
   {
     id: "l8",
     category: "landmark",
-    area: "푸동",
+    area: "루자주이",
     nameKo: "상하이 타워",
     nameZh: "上海中心大厦",
     addressZh: "上海市浦东新区陆家嘴环路501号",
@@ -285,7 +288,7 @@ export const places: Place[] = [
   {
     id: "r8",
     category: "restaurant",
-    area: "푸동",
+    area: "루자주이",
     nameKo: "진마오타워 내 레스토랑",
     nameZh: "金茂君悦大酒店餐厅",
     addressZh: "上海市浦东新区世纪大道88号金茂大厦",
@@ -457,7 +460,7 @@ export const places: Place[] = [
   {
     id: "c1",
     category: "cafe",
-    area: "신천지",
+    area: "징안사",
     nameKo: "스타벅스 리저브 로스터리",
     nameZh: "星巴克臻选烘焙工坊",
     addressZh: "上海市静安区南京西路789号",
@@ -479,7 +482,7 @@ export const places: Place[] = [
     category: "cafe",
     area: "와이탄",
     nameKo: "M1NT 클럽 루프탑 바",
-    nameZh: "明珠塔前咖啡",
+    nameZh: "M1NT",
     addressZh: "上海市黄浦区中山东一路18号",
     description: "와이탄 강변 루프탑 카페. 황푸강과 푸동 야경이 한눈에 펼쳐지는 뷰.",
     popularity: 88,
@@ -619,7 +622,7 @@ export const places: Place[] = [
   {
     id: "s2",
     category: "shopping",
-    area: "징안사",
+    area: "루자주이",
     nameKo: "정대광장 (쩡다 광장)",
     nameZh: "正大广场",
     addressZh: "上海市浦东新区陆家嘴西路168号",
@@ -751,7 +754,7 @@ export const places: Place[] = [
   {
     id: "h2",
     category: "hotel",
-    area: "푸동",
+    area: "루자주이",
     nameKo: "상하이 파크 하얏트",
     nameZh: "上海柏悦酒店",
     addressZh: "上海市浦东新区世纪大道100号环球金融中心79-93楼",
@@ -908,6 +911,28 @@ export const places: Place[] = [
     amapLocation: "121.4530,31.2190",
   },
   {
+    id: "l18",
+    category: "landmark",
+    area: "세기공원",
+    nameKo: "세기공원",
+    nameZh: "世纪公园",
+    addressZh: "上海市浦东新区锦绣路1001号",
+    description: "푸동 최대 규모의 도심 공원. 넓은 호수와 잔디밭이 펼쳐져 현지인들이 즐겨 찾는 휴식 공간.",
+    popularity: 74,
+    amapLocation: "121.5277,31.2147",
+  },
+  {
+    id: "l19",
+    category: "landmark",
+    area: "푸동국제공항",
+    nameKo: "상하이 푸동 국제공항",
+    nameZh: "上海浦东国际机场",
+    addressZh: "上海市浦东新区迎宾大道6000号",
+    description: "상하이 주요 국제공항. 인천-상하이 직항 노선 운영. 자기부상열차(磁浮列车)로 시내까지 빠르게 이동 가능.",
+    popularity: 80,
+    amapLocation: "121.8102,31.1434",
+  },
+  {
     id: "r26",
     category: "restaurant",
     area: "창러루",
@@ -951,7 +976,10 @@ export const AREAS: { value: Area | "all"; label: string }[] = [
   { value: "징안사", label: "징안사" },
   { value: "칭푸", label: "칭푸" },
   { value: "티엔쯔팡", label: "티엔쯔팡" },
-  { value: "푸동", label: "푸동" },
+  { value: "루자주이", label: "루자주이" },
+  { value: "푸동신구", label: "푸동신구" },
+  { value: "푸동국제공항", label: "푸동국제공항" },
+  { value: "세기공원", label: "세기공원" },
   { value: "창러루", label: "창러루" },
   { value: "우캉루", label: "우캉루" },
   { value: "디즈니", label: "디즈니" },
