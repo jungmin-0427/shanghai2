@@ -77,13 +77,16 @@ export default function Image() {
 
         <div
           style={{
+            display: "flex",
+            flexDirection: "column",
             fontSize: 36,
             color: "#444",
             fontWeight: 500,
             lineHeight: 1.6,
           }}
         >
-          상하이 인기 스팟<br />주소 복사&amp;고덕지도 이동까지
+          <span>상하이 인기 스팟</span>
+          <span>주소 복사&amp;고덕지도 이동까지</span>
         </div>
       </div>
 

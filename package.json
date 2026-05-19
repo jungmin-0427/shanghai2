@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "granite dev",
+    "build": "ait build",
     "start": "next start",
     "lint": "eslint",
     "amap:poi": "node scripts/amap-poi-resolve.mjs",
     "amap:poi:apply": "node scripts/amap-poi-apply.mjs",
-    "deploy": "bash deploy.sh",
+    "deploy": "ait deploy",
     "deploy:msg": "bash deploy.sh"
   },
   "dependencies": {
+    "@apps-in-toss/web-framework": "^2.6.0",
     "lucide-react": "^1.8.0",
     "next": "16.2.3",
     "react": "19.2.4",
