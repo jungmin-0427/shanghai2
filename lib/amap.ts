@@ -7,8 +7,22 @@ function hasPoiId(place: Place): boolean {
 function getNativeUrl(place: Place): string {
   const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   const scheme = isIOS ? "iosamap" : "androidamap";
-  const keywords = encodeURIComponent(place.addressZh ?? place.nameZh);
 
+  // 1순위: POI ID → 정확한 장소 상세 페이지
+  if (place.amapPoiId?.trim()) {
+    return `${scheme}://poi/detail?poiUid=${encodeURIComponent(place.amapPoiId.trim())}&dev=0&src=shanghaicok`;
+  }
+
+  // 2순위: 좌표 → 현재위치와 무관하게 정확한 위치로 이동
+  const loc = place.amapLocation?.trim();
+  if (loc) {
+    const [lon, lat] = loc.split(",");
+    const name = encodeURIComponent(place.nameZh);
+    return `${scheme}://viewMap?sourceApplication=shanghaicok&poiname=${name}&lat=${lat}&lon=${lon}&dev=0`;
+  }
+
+  // 3순위: 키워드 검색 (좌표 없는 장소)
+  const keywords = encodeURIComponent(place.addressZh ?? place.nameZh);
   return `${scheme}://poi?keywords=${keywords}&dev=0`;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Map, MapPin } from "lucide-react";
+import { Copy, Map, MapPin, Send } from "lucide-react";
 import type { Place } from "@/data/places";
 import { openAmap } from "@/lib/amap";
 import { CATEGORY_COLOR, CATEGORY_LABEL, CATEGORY_EMOJI } from "@/lib/utils";
@@ -10,9 +10,10 @@ interface PlaceCardProps {
   place: Place;
   onCopied?: (data: ToastData) => void;
   onClick?: () => void;
+  isHighlighted?: boolean;
 }
 
-export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) {
+export default function PlaceCard({ place, onCopied, onClick, isHighlighted }: PlaceCardProps) {
   const addressText = place.addressZh?.trim() || "주소 정보 없음";
   const copyPayload = place.addressZh?.trim() || `${place.nameZh} 上海市`;
 
@@ -31,10 +32,28 @@ export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) 
     openAmap(place);
   }
 
+  async function handleShare(e: React.MouseEvent) {
+    e.stopPropagation();
+    const url = `${window.location.origin}/places?place=${place.id}`;
+    const shareData = {
+      title: place.nameKo,
+      text: `${place.nameKo} (${place.nameZh})${place.addressZh ? `\n📍 ${place.addressZh}` : ""}`,
+      url,
+    };
+    try {
+      await navigator.share(shareData);
+    } catch {
+      // 사용자가 공유 취소하거나 미지원 환경
+    }
+  }
+
   return (
     <div
+      id={place.id}
       onClick={onClick}
-      className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 active:scale-[0.99] transition-all cursor-pointer hover:shadow-md"
+      className={`bg-white rounded-2xl p-4 shadow-sm border active:scale-[0.99] transition-all cursor-pointer hover:shadow-md ${
+        isHighlighted ? "border-red-300 ring-2 ring-red-200 ring-offset-1" : "border-gray-100"
+      }`}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
         <div className="flex items-center gap-2 flex-wrap">
@@ -48,6 +67,13 @@ export default function PlaceCard({ place, onCopied, onClick }: PlaceCardProps) 
             {place.area}
           </span>
         </div>
+        <button
+          onClick={handleShare}
+          className="shrink-0 p-1.5 rounded-full text-gray-900 hover:bg-gray-100 active:bg-gray-200 transition-all"
+          aria-label="공유하기"
+        >
+          <Send className="w-4 h-4" />
+        </button>
       </div>
 
       <div className="mb-1">

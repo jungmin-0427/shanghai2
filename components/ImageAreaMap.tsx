@@ -72,7 +72,7 @@ export default function ImageAreaMap({ selected, onSelect }: Props) {
           >
             <span
               className={`
-                px-1.5 py-0.5 rounded text-[8.5px] font-bold whitespace-nowrap shadow-md leading-tight
+                px-2 py-1 rounded text-[10px] font-bold whitespace-nowrap shadow-md leading-tight
                 ${isSelected
                   ? "bg-red-500 text-white"
                   : "bg-white/95 text-gray-800 border border-gray-200"

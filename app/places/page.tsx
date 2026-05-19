@@ -17,9 +17,21 @@ function PlacesContent() {
   const [area, setArea] = useState<Area | "all">("all");
   const [areasExpanded, setAreasExpanded] = useState(false);
   const [toast, setToast] = useState<ToastData | null>(null);
+  const [highlightId, setHighlightId] = useState<string | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const placeParam = searchParams.get("place");
+    if (placeParam) {
+      setCategory("all");
+      setArea("all");
+      setHighlightId(placeParam);
+      setTimeout(() => {
+        document.getElementById(placeParam)?.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => setHighlightId(null), 3000);
+      }, 100);
+      return;
+    }
     const areaParam = searchParams.get("area") as Area | null;
     if (areaParam) setArea(areaParam);
     const categoryParam = searchParams.get("category") as Category | null;
@@ -82,15 +94,13 @@ function PlacesContent() {
       <div ref={resultsRef} className="px-4 pb-2">
         {area !== "all" && (
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-xs font-semibold text-red-500">
-              <MapPin className="w-3 h-3" />
-              {area}
-            </span>
             <button
               onClick={() => setArea("all")}
-              className="text-xs text-gray-400 hover:text-red-400 transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-50 border border-red-100 text-xs font-semibold text-red-500 hover:bg-red-100 transition-colors"
             >
-              초기화
+              <MapPin className="w-3 h-3" />
+              {area}
+              <span className="ml-0.5 text-red-400 leading-none">✕</span>
             </button>
           </div>
         )}
@@ -122,6 +132,7 @@ function PlacesContent() {
                 key={place.id}
                 place={place}
                 onCopied={setToast}
+                isHighlighted={highlightId === place.id}
               />
             ))}
           </div>
