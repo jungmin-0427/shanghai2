@@ -6,8 +6,14 @@ import { SerwistProvider } from "@/components/SerwistProvider";
 
 export const metadata: Metadata = {
   title: "상하이콕",
-  description: "상하이 인기 맛집·카페·관광지의 중국어 주소를 쉽게 복사하고 고덕지도에서 바로 열어보세요.",
+  description: "상하이 인기 스팟 주소 복사&고덕지도 이동까지",
   keywords: "상하이, 여행, 맛집, 카페, 관광지, 중국어 주소, 고덕지도, 가오더지도",
+  openGraph: {
+    title: "상하이콕",
+    description: "상하이 인기 스팟 주소 복사&고덕지도 이동까지",
+    type: "website",
+    locale: "ko_KR",
+  },
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
