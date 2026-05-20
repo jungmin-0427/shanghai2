@@ -8,10 +8,10 @@ export default defineConfig({
     icon: '',
   },
   web: {
-    host: 'localhost',
+    host: '192.168.0.7',
     port: 3000,
     commands: {
-      dev: 'next dev --turbopack',
+      dev: 'next dev --turbopack --hostname 0.0.0.0',
       build: 'node scripts/build-toss.mjs',
     },
   },
