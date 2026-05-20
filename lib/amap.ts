@@ -49,13 +49,21 @@ export async function openAmap(place: Place): Promise<void> {
   // @apps-in-toss/web-bridge의 openURL(RN Linking.openURL)로 처리
   try {
     const { openURL } = await import("@apps-in-toss/web-bridge");
-    // Toss WebView 환경 확인됨 — 중첩 try로 앱 미설치 케이스를 별도 처리
-    try {
-      await openURL(getNativeUrl(place));
-    } catch {
-      // 고덕지도 미설치 → window.location.href는 WKWebView에서 작동 안 하므로
-      // 동일한 브릿지로 웹 fallback URL을 바로 열기
-      await openURL(getWebFallbackUrl(place));
+
+    if (isIOS) {
+      // iOS: Toss 앱이 LSApplicationQueriesSchemes에 iosamap을 등록하지 않으면
+      // Linking.openURL("iosamap://...")은 동작하지 않음.
+      // → https://uri.amap.com Universal Link 사용:
+      //   고덕지도 설치 시 앱으로, 미설치 시 Safari로 자동 처리됨
+      await openURL(getAmapUrl(place));
+    } else {
+      // Android: androidamap:// Intent 방식으로 네이티브 앱 직접 실행
+      try {
+        await openURL(getNativeUrl(place));
+      } catch {
+        // 고덕지도 미설치 → 웹 fallback
+        await openURL(getWebFallbackUrl(place));
+      }
     }
     return;
   } catch {
