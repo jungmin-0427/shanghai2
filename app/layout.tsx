@@ -49,6 +49,8 @@ export default function RootLayout({
                 width={28}
                 height={28}
                 className="rounded-full"
+                unoptimized
+                priority
               />
               <span className="text-sm text-gray-900 tracking-tight" style={{ fontFamily: "Cocochoitoon" }}>상하이콕</span>
             </div>

@@ -57,6 +57,7 @@ export default function HomePage() {
                 width={80}
                 height={80}
                 className="mb-3 opacity-50"
+                unoptimized
               />
               <p className="text-sm text-gray-400">장소를 찾을 수 없어요</p>
             </div>

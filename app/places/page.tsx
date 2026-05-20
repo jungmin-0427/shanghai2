@@ -121,6 +121,7 @@ function PlacesContent() {
               width={80}
               height={80}
               className="mb-3 opacity-60"
+              unoptimized
             />
             <p className="text-sm font-medium mb-1 text-gray-400">장소를 찾을 수 없어요</p>
             <p className="text-xs text-gray-400">다른 키워드나 필터를 시도해보세요</p>
