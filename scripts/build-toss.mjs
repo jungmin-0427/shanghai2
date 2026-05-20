@@ -58,7 +58,7 @@ const originals = patches.map(({ file, apply }) => {
 });
 
 try {
-  execSync("next build", { stdio: "inherit" });
+  execSync("npx next build", { stdio: "inherit" });
 } finally {
   // 성공/실패 무관하게 항상 원복
   originals.forEach(({ file, original }) => writeFileSync(file, original));
