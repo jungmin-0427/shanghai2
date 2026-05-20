@@ -5,7 +5,8 @@ function hasPoiId(place: Place): boolean {
 }
 
 function getNativeUrl(place: Place): string {
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const scheme = isIOS ? "iosamap" : "androidamap";
 
   // 1순위: POI ID → 정확한 장소 상세 페이지
@@ -42,13 +43,20 @@ export async function openAmap(place: Place): Promise<void> {
   }
 
   // Toss WebView에서는 window.location.href로 커스텀 스킴을 열 수 없음
-  // @apps-in-toss/web-bridge의 openURL이 React Native Linking.openURL을 사용해 올바르게 처리
+  // @apps-in-toss/web-bridge의 openURL(RN Linking.openURL)로 처리
   try {
     const { openURL } = await import("@apps-in-toss/web-bridge");
-    await openURL(getNativeUrl(place));
+    // Toss WebView 환경 확인됨 — 중첩 try로 앱 미설치 케이스를 별도 처리
+    try {
+      await openURL(getNativeUrl(place));
+    } catch {
+      // 고덕지도 미설치 → window.location.href는 WKWebView에서 작동 안 하므로
+      // 동일한 브릿지로 웹 fallback URL을 바로 열기
+      await openURL(getWebFallbackUrl(place));
+    }
     return;
   } catch {
-    // Toss WebView 외 환경 (브라우저) → 기존 방식으로 폴백
+    // import 자체가 실패 = Toss WebView 외 환경 (일반 브라우저) → 기존 방식으로 폴백
   }
 
   let appOpened = false;
