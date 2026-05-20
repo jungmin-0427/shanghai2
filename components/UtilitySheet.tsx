@@ -3,6 +3,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { X, RefreshCw } from "lucide-react";
 
+// Android Toss WebView: RN layer handles nav bar safe area — skip CSS inset
+const isAndroid =
+  typeof navigator !== "undefined" && /Android/i.test(navigator.userAgent);
+const sheetPaddingBottom = isAndroid
+  ? "2rem"
+  : "calc(2rem + env(safe-area-inset-bottom))";
+
 // ── 환율 ──────────────────────────────────────────────
 const CACHE_KEY = "exchange_rate_cache";
 const CACHE_TTL = 30 * 60 * 1000;
@@ -79,7 +86,7 @@ export function WeatherSheet({ isOpen, onClose, weather, today }: WeatherSheetPr
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
       <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
-        <div className="bg-white rounded-t-3xl shadow-xl max-w-lg mx-auto px-5 pt-4 pb-8" style={{ paddingBottom: 'calc(2rem + env(safe-area-inset-bottom))' }}>
+        <div className="bg-white rounded-t-3xl shadow-xl max-w-lg mx-auto px-5 pt-4 pb-8" style={{ paddingBottom: sheetPaddingBottom }}>
           <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4" />
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-base font-bold text-gray-900">상하이 날씨</h2>
@@ -197,7 +204,7 @@ export function ExchangeSheet({ isOpen, onClose }: ExchangeSheetProps) {
     <>
       <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
       <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
-        <div className="bg-white rounded-t-3xl shadow-xl max-w-lg mx-auto px-5 pt-4" style={{ paddingBottom: 'calc(2rem + env(safe-area-inset-bottom))' }}>
+        <div className="bg-white rounded-t-3xl shadow-xl max-w-lg mx-auto px-5 pt-4" style={{ paddingBottom: sheetPaddingBottom }}>
           <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4" />
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-base font-bold text-gray-900">환율 계산기</h2>

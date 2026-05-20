@@ -9,11 +9,20 @@ const navItems = [
   { href: "/places", label: "탐색", icon: MapPin },
 ];
 
+// Toss WebView on Android: RN layer already handles the navigation bar safe area,
+// so env(safe-area-inset-bottom) causes double-padding. Use 0 on Android.
+const isAndroid =
+  typeof navigator !== "undefined" && /Android/i.test(navigator.userAgent);
+const safeBottom = isAndroid ? "0px" : "env(safe-area-inset-bottom)";
+
 export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 safe-bottom">
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100"
+      style={{ paddingBottom: safeBottom }}
+    >
       <div className="flex max-w-lg mx-auto">
         {navItems.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
