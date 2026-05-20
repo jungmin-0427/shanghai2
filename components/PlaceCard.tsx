@@ -3,6 +3,7 @@
 import { Copy, Map, MapPin, Send } from "lucide-react";
 import type { Place } from "@/data/places";
 import { openAmap } from "@/lib/amap";
+import { copyToClipboard, sharePlace } from "@/lib/toss";
 import { CATEGORY_COLOR, CATEGORY_LABEL, CATEGORY_EMOJI } from "@/lib/utils";
 import type { ToastData } from "@/components/Toast";
 
@@ -20,7 +21,7 @@ export default function PlaceCard({ place, onCopied, onClick, isHighlighted }: P
   async function handleCopy(e: React.MouseEvent) {
     e.stopPropagation();
     try {
-      await navigator.clipboard.writeText(copyPayload);
+      await copyToClipboard(copyPayload);
       onCopied?.({ label: place.nameKo, message: "주소 복사 완료!" });
     } catch {
       onCopied?.({ message: "클립보드 복사에 실패했습니다." });
@@ -34,14 +35,12 @@ export default function PlaceCard({ place, onCopied, onClick, isHighlighted }: P
 
   async function handleShare(e: React.MouseEvent) {
     e.stopPropagation();
-    const url = `${window.location.origin}/places?place=${place.id}`;
-    const shareData = {
-      title: place.nameKo,
-      text: `${place.nameKo} (${place.nameZh})${place.addressZh ? `\n📍 ${place.addressZh}` : ""}`,
-      url,
-    };
     try {
-      await navigator.share(shareData);
+      await sharePlace({
+        placeId: place.id,
+        title: place.nameKo,
+        text: `${place.nameKo} (${place.nameZh})${place.addressZh ? `\n📍 ${place.addressZh}` : ""}`,
+      });
     } catch {
       // 사용자가 공유 취소하거나 미지원 환경
     }

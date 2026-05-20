@@ -163,6 +163,8 @@ export default function HeroBanner({ searchValue, onSearchChange }: HeroBannerPr
           width={150}
           height={150}
           className="object-contain"
+          unoptimized
+          priority
         />
       </div>
 

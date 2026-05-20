@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X, MapPin, Copy, Check, ExternalLink } from "lucide-react";
 import type { Place } from "@/data/places";
 import { openAmap } from "@/lib/amap";
+import { copyToClipboard } from "@/lib/toss";
 import { CATEGORY_COLOR, CATEGORY_LABEL, CATEGORY_EMOJI } from "@/lib/utils";
 import type { ToastData } from "@/components/Toast";
 
@@ -21,7 +22,7 @@ export default function PlaceDetailModal({ place, onClose, onCopied }: PlaceDeta
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(copyPayload);
+      await copyToClipboard(copyPayload);
       setCopied(true);
       onCopied?.({ label: place.nameKo, message: "주소 복사 완료!" });
       setTimeout(() => setCopied(false), 2000);
