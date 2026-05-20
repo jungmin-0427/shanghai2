@@ -23,8 +23,11 @@ function getNativeUrl(place: Place): string {
   }
 
   // 3순위: 키워드 검색 (좌표 없는 장소)
-  const keywords = encodeURIComponent(place.addressZh ?? place.nameZh);
-  return `${scheme}://poi?keywords=${keywords}&dev=0`;
+  // addressZh(전체 주소)는 POI 검색 키워드로 부적합 — nameZh(장소명)으로 검색하고
+  // city=上海로 범위 제한해 전국 검색 방지
+  const keywords = encodeURIComponent(place.nameZh);
+  const city = encodeURIComponent("上海");
+  return `${scheme}://poi?keywords=${keywords}&city=${city}&dev=0`;
 }
 
 function getWebFallbackUrl(place: Place): string {
