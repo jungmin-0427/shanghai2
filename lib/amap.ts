@@ -31,7 +31,7 @@ function getWebFallbackUrl(place: Place): string {
   return `https://uri.amap.com/search?keyword=${address}`;
 }
 
-export function openAmap(place: Place): void {
+export async function openAmap(place: Place): Promise<void> {
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const isAndroid = /Android/i.test(ua);
@@ -39,6 +39,16 @@ export function openAmap(place: Place): void {
   if (!isIOS && !isAndroid) {
     window.open(getWebFallbackUrl(place), "_blank");
     return;
+  }
+
+  // Toss WebView에서는 window.location.href로 커스텀 스킴을 열 수 없음
+  // @apps-in-toss/web-bridge의 openURL이 React Native Linking.openURL을 사용해 올바르게 처리
+  try {
+    const { openURL } = await import("@apps-in-toss/web-bridge");
+    await openURL(getNativeUrl(place));
+    return;
+  } catch {
+    // Toss WebView 외 환경 (브라우저) → 기존 방식으로 폴백
   }
 
   let appOpened = false;
