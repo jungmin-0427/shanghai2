@@ -85,3 +85,15 @@ body {
     animation: float 3s ease-in-out infinite;
   }
 }
+
+/* 안드로이드 하이브리드 앱 내부 전용 스타일 최적화 */
+html.is-android-app {
+  -webkit-user-select: none;
+  user-select: none;
+}
+html.is-android-app input, 
+html.is-android-app textarea {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+

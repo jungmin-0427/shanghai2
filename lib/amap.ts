@@ -31,10 +31,21 @@ function getWebFallbackUrl(place: Place): string {
   return `https://uri.amap.com/search?keyword=${address}`;
 }
 
+export function isAndroidApp(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return /ShanghaikokApp\/Android/i.test(navigator.userAgent);
+}
+
 export function openAmap(place: Place): void {
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const isAndroid = /Android/i.test(ua);
+
+  // 안드로이드 앱 내부인 경우, 네이티브 웹뷰의 Intent 인터셉트가 작동하도록 바로 주입하고 반환 (타이머 리다이렉션 버그 차단)
+  if (isAndroidApp()) {
+    window.location.href = getNativeUrl(place);
+    return;
+  }
 
   if (!isIOS && !isAndroid) {
     window.open(getWebFallbackUrl(place), "_blank");
