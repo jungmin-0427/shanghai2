@@ -50,7 +50,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="font-semibold text-gray-900 mb-1">4. 문의</h2>
           <p>개인정보 관련 문의는 아래 이메일로 연락해 주세요.</p>
-          <p className="mt-1 font-medium">hjm5158@gmail.com</p>
+          <p className="mt-1 font-medium">shanghaikok@gmail.com</p>
         </section>
 
         <section>
