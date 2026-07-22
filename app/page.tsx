@@ -83,6 +83,12 @@ export default function HomePage() {
         </section>
       </div>
 
+      <footer className="px-4 pt-8 pb-2 text-center">
+        <Link href="/privacy" className="text-xs text-gray-400 underline">
+          개인정보처리방침
+        </Link>
+      </footer>
+
 {toast && <Toast data={toast} onClose={() => setToast(null)} />}
     </main>
   );
