@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Image from "next/image";
 import BottomNav from "@/components/BottomNav";
@@ -40,6 +41,18 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full">
       <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4L3NX53M56"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-4L3NX53M56');
+          `}
+        </Script>
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3315301463848602"
