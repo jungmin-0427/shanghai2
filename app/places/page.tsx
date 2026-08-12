@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import ImageAreaMap from "@/components/ImageAreaMap";
@@ -12,7 +11,6 @@ import type { Category, Area } from "@/data/places";
 import { filterPlaces, sortByPopularity } from "@/lib/utils";
 
 function PlacesContent() {
-  const searchParams = useSearchParams();
   const [category, setCategory] = useState<Category | "all">("all");
   const [area, setArea] = useState<Area | "all">("all");
   const [areasExpanded, setAreasExpanded] = useState(false);
@@ -21,6 +19,7 @@ function PlacesContent() {
   const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
     const placeParam = searchParams.get("place");
     if (placeParam) {
       setCategory("all");
@@ -36,7 +35,7 @@ function PlacesContent() {
     if (areaParam) setArea(areaParam);
     const categoryParam = searchParams.get("category") as Category | null;
     if (categoryParam) setCategory(categoryParam);
-  }, [searchParams]);
+  }, []);
 
   function handleMapSelect(value: Area | "all") {
     setArea(value);
@@ -145,9 +144,5 @@ function PlacesContent() {
 }
 
 export default function PlacesPage() {
-  return (
-    <Suspense>
-      <PlacesContent />
-    </Suspense>
-  );
+  return <PlacesContent />;
 }
