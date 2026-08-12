@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   icons: {
     apple: "/appicon.png",
   },
+  verification: {
+    google: "FevOWZtDJ8FNgzqMiApuMMX7yGkhuBajlK55nn0UCVM",
+  },
 };
 
 export const viewport: Viewport = {
