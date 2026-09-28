@@ -363,6 +363,14 @@ const rawPlaces: PlaceInput[] = [
   },
   {
     category: "restaurant",
+    area: "난징동루",
+    nameKo: "산동잡곡전병",
+    nameZh: "山东杂粮煎饼(德仁里店)",
+    addressZh: "上海市黄浦区广西北路430号",
+    description: "난징동루·인민광장 근처에서 간단하게 즐기기 좋은 산동식 잡곡 전병(젠빙) 가게. 주문 즉시 구워 바삭하게 먹는 중국식 길거리 음식.",
+  },
+  {
+    category: "restaurant",
     area: "신천지",
     nameKo: "점도덕 신천지 환위후이점",
     nameZh: "点都德(环宇荟店)",
