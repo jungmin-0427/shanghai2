@@ -12,19 +12,19 @@ export default function manifest(): MetadataRoute.Manifest {
     orientation: "portrait",
     icons: [
       {
-        src: "/appicon.png",
+        src: "/appicon2.png",
         sizes: "192x192",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/appicon.png",
+        src: "/appicon2.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/appicon.png",
+        src: "/appicon2.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",

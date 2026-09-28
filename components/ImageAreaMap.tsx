@@ -7,6 +7,7 @@ const CALIBRATION_MODE = false;
 
 const PINS: { id: Area; label: string; x: number; y: number }[] = [
   { id: "징안사",       label: "징안사",       x: 12.3, y: 11.2 },
+  { id: "홍차오",       label: "홍차오",       x: 10,   y: 25.5 },
   { id: "난징동루",     label: "난징동루",     x: 37.9, y: 17.5 },
   { id: "창러루",       label: "창러루",       x: 14.1, y: 40.6 },
   { id: "인민광장",     label: "인민광장",     x: 28.9, y: 31   },
@@ -51,7 +52,7 @@ export default function ImageAreaMap({ selected, onSelect }: Props) {
       )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/newshanghaimap.png?v=3"
+        src="/renewshanghaimap.png?v=4"
         alt="상하이 지도"
         className="w-full h-auto block"
       />
