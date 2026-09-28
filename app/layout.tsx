@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "상하이맵",
   },
   icons: {
-    apple: "/appicon.png",
+    apple: "/appicon2.png",
   },
   verification: {
     google: "FevOWZtDJ8FNgzqMiApuMMX7yGkhuBajlK55nn0UCVM",
@@ -78,7 +78,7 @@ export default function RootLayout({
           <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-100 h-12">
             <div className="flex items-center gap-2 max-w-lg mx-auto h-full px-4">
               <Image
-                src="/appicon.png"
+                src="/appicon2.png"
                 alt="상하이맵 마스코트"
                 width={28}
                 height={28}
