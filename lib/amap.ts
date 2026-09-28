@@ -1,3 +1,4 @@
+import { Device } from "@apps-in-toss/web-framework";
 import type { Place } from "@/data/places";
 
 function hasPoiId(place: Place): boolean {
@@ -36,7 +37,19 @@ export function isAndroidApp(): boolean {
   return /ShanghaikokApp\/Android/i.test(navigator.userAgent);
 }
 
+function isTossWebView(): boolean {
+  if (typeof window === "undefined") return false;
+  return Boolean((window as unknown as { ReactNativeWebView?: unknown }).ReactNativeWebView);
+}
+
 export function openAmap(place: Place): void {
+  // 토스 미니앱 WebView 안에서는 커스텀 스킴(iosamap://, androidamap://)이 인앱 브라우저로
+  // 가로채져 느리고 위치 권한 팝업까지 뜨므로, Device.openURL로 기기 외부(고덕지도 앱)에서 열어요.
+  if (isTossWebView()) {
+    Device.openURL(getAmapUrl(place)).catch(() => {});
+    return;
+  }
+
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const isAndroid = /Android/i.test(ua);
