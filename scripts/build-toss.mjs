@@ -13,7 +13,7 @@ const patches = [
     apply: (s) =>
       s.replace(
         "const nextConfig: NextConfig = {",
-        'const nextConfig: NextConfig = {\n  output: "export",\n  distDir: "dist",'
+        'const nextConfig: NextConfig = {\n  output: "export",\n  distDir: "dist",\n  images: { unoptimized: true },'
       ),
   },
   {
@@ -30,6 +30,22 @@ const patches = [
       s.replace(
         'import type { MetadataRoute } from "next";',
         'import type { MetadataRoute } from "next";\nexport const dynamic = "force-static";'
+      ),
+  },
+  {
+    file: "app/sitemap.ts",
+    apply: (s) =>
+      s.replace(
+        "import type { MetadataRoute } from 'next'",
+        "import type { MetadataRoute } from 'next'\nexport const dynamic = 'force-static'"
+      ),
+  },
+  {
+    file: "app/robots.ts",
+    apply: (s) =>
+      s.replace(
+        "import type { MetadataRoute } from 'next'",
+        "import type { MetadataRoute } from 'next'\nexport const dynamic = 'force-static'"
       ),
   },
   {

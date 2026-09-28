@@ -3,17 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "granite dev",
-    "build": "ait build",
+    "dev": "next dev --turbopack",
+    "build": "node scripts/build-toss.mjs && ait build",
     "start": "next start",
     "lint": "eslint",
     "amap:poi": "node scripts/amap-poi-resolve.mjs",
     "amap:poi:apply": "node scripts/amap-poi-apply.mjs",
+    "naver:candidates": "node scripts/naver-blog-candidates.mjs",
     "deploy": "ait deploy",
     "deploy:msg": "bash deploy.sh"
   },
   "dependencies": {
-    "@apps-in-toss/web-framework": "^2.6.0",
+    "@apps-in-toss/web-framework": "^3.6.0",
     "lucide-react": "^1.8.0",
     "next": "16.2.3",
     "react": "19.2.4",
