@@ -69,7 +69,7 @@ export default function HomePage() {
             {/* 마스코트 */}
             <Image
               src="/mascot.png"
-              alt="상하이콕"
+              alt="상하이맵"
               width={100}
               height={100}
               className="flex-shrink-0 drop-shadow-md"
@@ -133,7 +133,7 @@ export default function HomePage() {
             <div className="text-center py-12 flex flex-col items-center">
               <Image
                 src="/mascot.png"
-                alt="상하이콕"
+                alt="상하이맵"
                 width={80}
                 height={80}
                 className="mb-3 opacity-50"
