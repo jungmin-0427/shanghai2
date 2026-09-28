@@ -23,6 +23,7 @@ export type Area =
   | "신천지"
   | "징안사"
   | "칭푸"
+  | "홍차오"
   | "티엔쯔팡"
   | "루자주이"
   | "푸동신구"
@@ -183,13 +184,12 @@ const rawPlaces: PlaceInput[] = [
   },
   {
     category: "landmark",
-    area: "칭푸",
+    area: "홍차오",
     nameKo: "판롱티엔디",
     nameZh: "蟠龙天地",
-    addressZh: "上海市青浦区蟠鼎路123弄",
-    description: "구릉·운하를 재해석한 복합 문화·상업 단지.",
-    popularity: 82,
-    amapLocation: "121.2850,31.1750",
+    addressZh: "上海市青浦区徐泾镇蟠鼎路123弄8号",
+    description: "전통 강남 수향마을의 풍경과 현대적인 카페·맛집·상점이 어우러진 공간. 홍차오공항과 가까워 함께 방문하기 좋다.",
+    amapLocation: "121.275514,31.188526",
   },
   {
     category: "landmark",
@@ -250,6 +250,15 @@ const rawPlaces: PlaceInput[] = [
     description: "상하이 주요 국제공항. 인천-상하이 직항 노선 운영. 자기부상열차(磁浮列车)로 시내까지 빠르게 이동 가능.",
     popularity: 80,
     amapLocation: "121.8102,31.1434",
+  },
+  {
+    category: "landmark",
+    area: "홍차오",
+    nameKo: "상하이 홍차오 국제공항",
+    nameZh: "上海虹桥国际机场",
+    addressZh: "上海市长宁区虹桥路2550号",
+    description: "김포-홍차오 노선 등 국제선을 이용할 수 있는 상하이 서쪽 공항. 상하이 도심과 가까워 접근성이 좋다.",
+    amapLocation: "121.348150,31.194909",
   },
 
   // --- restaurant ---
@@ -496,6 +505,42 @@ const rawPlaces: PlaceInput[] = [
     description: "상하이 본토 가정식 대표 노포. 홍소육·게살두부죽·파기름 볶음면으로 유명. 한국인 필수 맛집.",
     popularity: 86,
     amapLocation: "121.4455,31.2145",
+  },
+  {
+    category: "restaurant",
+    area: "홍차오",
+    nameKo: "백년용포",
+    nameZh: "百年龙袍蟹黄汤包",
+    addressZh: "上海市青浦区蟠鼎路177弄2号",
+    description: "판롱티엔디에 위치한 게 요리 전문점. 게황 탕바오와 게살·게황을 활용한 면 요리가 인기 메뉴다.",
+    amapLocation: "121.2753,31.1898",
+  },
+  {
+    category: "restaurant",
+    area: "홍차오",
+    nameKo: "수딤섬",
+    nameZh: "苏小柳点心(蟠龙天地分院)",
+    addressZh: "上海市青浦区蟠鼎路177弄2号BS113-BS115室",
+    description: "판롱티엔디에 위치한 딤섬 전문점. 샤오롱바오를 비롯한 다양한 강남식 딤섬을 맛볼 수 있다.",
+    amapLocation: "121.275399,31.189937",
+  },
+  {
+    category: "restaurant",
+    area: "홍차오",
+    nameKo: "마지용 란저우 우육면",
+    nameZh: "马记永·兰州牛肉面(虹桥天地店)",
+    addressZh: "上海市闵行区申长路688号虹桥天地购物中心B1层",
+    description: "홍차오톈디에 위치한 란저우식 우육면 전문점. 진한 국물의 우육면과 양꼬치 등을 함께 즐기기 좋다.",
+    amapLocation: "121.3147,31.1923",
+  },
+  {
+    category: "restaurant",
+    area: "홍차오",
+    nameKo: "푸티엔",
+    nameZh: "莆田餐厅PUTIEN(虹桥天地店)",
+    addressZh: "上海市闵行区申长路688号虹桥天地购物中心5F L5-12",
+    description: "홍차오톈디에 위치한 푸젠요리 전문점. 해산물과 푸젠식 면요리 등 다양한 지역 요리를 맛볼 수 있다.",
+    amapLocation: "121.314825,31.192279",
   },
 
   // --- cafe ---
@@ -913,6 +958,7 @@ export const AREAS: { value: Area | "all"; label: string }[] = [
   { value: "신천지", label: "신천지" },
   { value: "징안사", label: "징안사" },
   { value: "칭푸", label: "칭푸" },
+  { value: "홍차오", label: "홍차오" },
   { value: "티엔쯔팡", label: "티엔쯔팡" },
   { value: "루자주이", label: "루자주이" },
   { value: "푸동신구", label: "푸동신구" },
