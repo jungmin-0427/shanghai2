@@ -116,7 +116,7 @@ function PlacesContent() {
           <div className="text-center py-16 text-gray-400 flex flex-col items-center">
             <Image
               src="/mascot2.png"
-              alt="상하이맵"
+              alt="상하이콕"
               width={80}
               height={80}
               className="mb-3 opacity-60"

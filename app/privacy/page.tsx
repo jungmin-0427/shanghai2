@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "개인정보처리방침 | 상하이맵",
-  description: "상하이맵 개인정보처리방침 및 광고 쿠키 안내",
+  title: "개인정보처리방침 | 상하이콕",
+  description: "상하이콕 개인정보처리방침 및 광고 쿠키 안내",
 };
 
 export default function PrivacyPage() {
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="font-semibold text-gray-900 mb-1">1. 수집하는 정보</h2>
           <p>
-            상하이맵(이하 &quot;서비스&quot;)은 회원가입 없이 이용 가능하며, 이용자가 직접 입력하는
+            상하이콕(이하 &quot;서비스&quot;)은 회원가입 없이 이용 가능하며, 이용자가 직접 입력하는
             개인정보를 별도로 수집하지 않습니다. 서비스 이용 과정에서 기기 정보, 브라우저 정보,
             방문 페이지 등 비식별 이용 기록이 자동으로 생성될 수 있습니다.
           </p>

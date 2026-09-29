@@ -63,7 +63,7 @@ export default function Image() {
             lineHeight: 1,
           }}
         >
-          상하이맵
+          상하이콕
         </div>
 
         <div

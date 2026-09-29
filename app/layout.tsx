@@ -6,11 +6,11 @@ import BottomNav from "@/components/BottomNav";
 import { SerwistProvider } from "@/components/SerwistProvider";
 
 export const metadata: Metadata = {
-  title: "상하이맵",
+  title: "상하이콕",
   description: "상하이 인기 스팟 주소 복사&고덕지도 이동까지",
   keywords: "상하이, 여행, 맛집, 카페, 관광지, 중국어 주소, 고덕지도, 가오더지도",
   openGraph: {
-    title: "상하이맵",
+    title: "상하이콕",
     description: "상하이 인기 스팟 주소 복사&고덕지도 이동까지",
     type: "website",
     locale: "ko_KR",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "상하이맵",
+    title: "상하이콕",
   },
   icons: {
     apple: "/appicon2.png",
@@ -79,7 +79,7 @@ export default function RootLayout({
             <div className="flex items-center gap-2 max-w-lg mx-auto h-full px-4">
               <Image
                 src="/appicon2.png"
-                alt="상하이맵 마스코트"
+                alt="상하이콕 마스코트"
                 width={28}
                 height={28}
                 className="rounded-full"
