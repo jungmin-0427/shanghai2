@@ -84,7 +84,7 @@ export default function RootLayout({
                 height={28}
                 className="rounded-full"
               />
-              <span className="text-sm text-gray-900 tracking-tight" style={{ fontFamily: "Cocochoitoon" }}>상하이맵</span>
+              <span className="text-sm text-gray-900 tracking-tight" style={{ fontFamily: "Cocochoitoon" }}>상하이콕</span>
             </div>
           </header>
           <div className="max-w-lg mx-auto min-h-screen relative">{children}</div>
